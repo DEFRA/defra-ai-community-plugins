@@ -1,0 +1,19 @@
+# CODEOWNERS for defra-ai-community-plugins
+#
+# Default reviewers for any change. AICE reviews every PR as a quality gate but
+# does not maintain merged plugins — see the "Community Support Disclaimer" in
+# README.md.
+# See https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-security/customizing-your-repository/about-code-owners
+*                              @DEFRA/ai-dev-team
+
+# Validation tooling, schemas and CI need extra care — same team for now.
+/scripts/                      @DEFRA/ai-dev-team
+/schemas/                      @DEFRA/ai-dev-team
+/.github/workflows/            @DEFRA/ai-dev-team
+/.github/plugin/                @DEFRA/ai-dev-team
+
+# Per-plugin codeowners: add a line below for every plugin as it's merged, so
+# the contributing team is tagged on future changes to their own plugin. This
+# is expected to happen quickly here — every plugin in this repo is intended
+# to be community-owned.
+# /plugins/some-plugin-name/    @some-org/some-team
