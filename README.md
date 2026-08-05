@@ -156,11 +156,6 @@ plugin any more, open an issue so it can be flagged or removed from
 Both are supported entry-point formats (see §4). A plugin can ship a Copilot
 agent, a Claude Code agent, a skill, or several of these together.
 
-**Can my plugin move to the official repo later?**
-Yes — that's an explicit path. Once a plugin has proven itself here, propose
-it to [`defra-ai-plugins`](https://github.com/DEFRA/defra-ai-plugins) via
-their plugin-proposal process, meeting their (higher) bar at that point.
-
 ## References
 
 - [Defra software development standards](https://github.com/DEFRA/software-development-standards)
