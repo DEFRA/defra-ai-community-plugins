@@ -164,7 +164,7 @@ their plugin-proposal process, meeting their (higher) bar at that point.
 ## References
 
 - [Defra software development standards](https://github.com/DEFRA/software-development-standards)
-- [Defra AI SDLC playbook](https://defra.github.io/defra-ai-sdlc/)
+- [Defra AI Toolkit](https://digital.defra.gov.uk/ai-toolkit)
 - [Official `defra-ai-plugins` marketplace](https://github.com/DEFRA/defra-ai-plugins)
 - [GitHub Copilot CLI plugin docs](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/plugins-finding-installing)
 
