@@ -17,7 +17,7 @@ owned by the contributing team from there on.
 
 |               | [`defra-ai-plugins`](https://github.com/DEFRA/defra-ai-plugins) (official)   | `defra-ai-community-plugins` (this repo)                                               |
 | ------------- | ---------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| Maintained by | AICE, on an ongoing basis                                                     | The contributing team, after AICE's initial review                                      |
+| Maintained by | AICE, on an ongoing basis                                                    | The contributing team, after AICE's initial review                                     |
 | Bar to entry  | High — schema validation, CI, evals encouraged/becoming mandatory, docs-sync | Lighter — schema validation and CI, evals optional                                     |
 | Best for      | Plugins meant to become a durable, org-wide standard                         | Plugins useful now, team-specific, experimental, or not yet ready for the official bar |
 
