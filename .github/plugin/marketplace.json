@@ -1,0 +1,11 @@
+{
+  "$schema": "../../schemas/marketplace.schema.json",
+  "name": "defra-ai-community-plugins",
+  "description": "Community-contributed GitHub Copilot CLI / Claude Code plugins for Defra — reviewed by the AI dev team but maintained by the contributing teams, not AICE.",
+  "version": "0.1.0",
+  "owner": {
+    "type": "organization",
+    "name": "DEFRA"
+  },
+  "plugins": []
+}

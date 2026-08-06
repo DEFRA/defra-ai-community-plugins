@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/DEFRA/defra-ai-community-plugins/blob/main/schemas/marketplace.schema.json",
+  "title": "Defra community plugin marketplace manifest",
+  "description": "Schema for .github/plugin/marketplace.json — the registry of plugins published by this community marketplace.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "description", "version", "owner", "plugins"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri-reference"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z][a-z0-9-]*[a-z0-9]$",
+      "description": "Marketplace identifier in kebab-case."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "description": "Brief description of the marketplace."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(-[0-9A-Za-z.-]+)?$",
+      "description": "Semantic version of the marketplace registry."
+    },
+    "owner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["organization", "user"]
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "plugins": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "description", "version", "source"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50,
+            "pattern": "^[a-z][a-z0-9-]*[a-z0-9]$",
+            "description": "Plugin identifier in kebab-case. Must match the plugin's directory name and its plugin.json#name."
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "description": "Brief description shown in the marketplace listing."
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+(-[0-9A-Za-z.-]+)?$",
+            "description": "Semantic version of the plugin."
+          },
+          "source": {
+            "type": "string",
+            "pattern": "^plugins/[a-z][a-z0-9-]*[a-z0-9]$",
+            "description": "Relative path to the plugin directory, starting with 'plugins/'."
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "development",
+              "testing",
+              "accessibility",
+              "security",
+              "documentation",
+              "productivity",
+              "data"
+            ]
+          },
+          "homepage": {
+            "type": "string",
+            "format": "uri"
+          },
+          "keywords": {
+            "type": "array",
+            "maxItems": 10,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 30
+            }
+          }
+        }
+      }
+    }
+  }
+}

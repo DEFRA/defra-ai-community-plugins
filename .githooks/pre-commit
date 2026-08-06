@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+// Format the repo with Prettier before each commit.
+//
+// Activate once per checkout:
+//   git config core.hooksPath .githooks
+//
+// Behaviour: runs `npx prettier --write .` on the whole tree (paths in
+// .prettierignore are skipped). Only files that were already staged get
+// re-added — unstaged tracked changes are left alone, so a stray edit
+// elsewhere does not silently slip into the commit.
+
+import { execFileSync, spawnSync } from 'node:child_process'
+import { existsSync } from 'node:fs'
+
+const staged = execFileSync('git', ['diff', '--cached', '--name-only', '--diff-filter=ACMR'], {
+  encoding: 'utf8'
+})
+  .split('\n')
+  .filter(Boolean)
+
+const prettier = spawnSync('npx', ['--no-install', 'prettier', '--write', '.'], {
+  stdio: 'inherit'
+})
+if (prettier.status !== 0) {
+  process.exit(prettier.status ?? 1)
+}
+
+for (const path of staged) {
+  if (existsSync(path)) {
+    execFileSync('git', ['add', '--', path], { stdio: 'inherit' })
+  }
+}

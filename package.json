@@ -1,0 +1,30 @@
+{
+  "name": "defra-ai-community-plugins",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Defra community GitHub Copilot CLI / Claude Code plugin marketplace.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "lint": "eslint scripts/",
+    "lint:fix": "eslint scripts/ --fix",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "test": "node scripts/validate-all.mjs",
+    "validate": "node scripts/validate-all.mjs",
+    "validate:fix": "node scripts/check-sorted.mjs --fix"
+  },
+  "dependencies": {
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "gray-matter": "4.0.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.4",
+    "eslint": "9.39.4",
+    "globals": "17.7.0",
+    "prettier": "3.9.6"
+  }
+}

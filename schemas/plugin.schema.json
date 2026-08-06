@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/DEFRA/defra-ai-community-plugins/blob/main/schemas/plugin.schema.json",
+  "title": "Defra community plugin manifest",
+  "description": "Schema for plugins/<plugin-name>/plugin.json — the manifest for a single community-contributed plugin.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "description", "version", "author", "license"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri-reference"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50,
+      "pattern": "^[a-z][a-z0-9-]*[a-z0-9]$",
+      "description": "Plugin identifier in kebab-case. Must match the directory name."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "description": "Brief description of what the plugin does."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(-[0-9A-Za-z.-]+)?$",
+      "description": "Semantic version."
+    },
+    "author": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "license": {
+      "type": "string",
+      "minLength": 1,
+      "description": "SPDX licence identifier. 'OGL-UK-3.0' is the repo default; a plugin may use a different SPDX licence instead, provided it ships its own plugins/<name>/LICENSE file with the full text."
+    },
+    "homepage": {
+      "type": "string",
+      "format": "uri"
+    },
+    "repository": {
+      "type": "string",
+      "format": "uri"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "development",
+        "testing",
+        "accessibility",
+        "security",
+        "documentation",
+        "productivity",
+        "data"
+      ]
+    },
+    "keywords": {
+      "type": "array",
+      "maxItems": 10,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 30
+      }
+    },
+    "dependencies": {
+      "type": "array",
+      "description": "Names of other plugins in this same marketplace whose skills or hooks this plugin's agents reference. A plugin cannot depend on one published only in the official defra-ai-plugins marketplace. Declaring dependencies lets the validator catch references to skills the user may not have installed, and lets READMEs document the install order.",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]*[a-z0-9]$"
+      }
+    }
+  }
+}
