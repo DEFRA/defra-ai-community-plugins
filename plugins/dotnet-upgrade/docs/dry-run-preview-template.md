@@ -10,29 +10,29 @@
 
 ---
 
-## Pre-mutation surfacing 
+## Pre-mutation surfacing
 
 Before any change is proposed, the agent surfaces:
 
 ### Breaking Changes Detected
 
 | Project | Area | Breaking Change | Affected Files / APIs | Mitigation |
-|---|---|---|---|---|
+| ------- | ---- | --------------- | --------------------- | ---------- |
 
 ### Deprecated APIs Detected
 
 | Project | Deprecated API | File / Method | Required Replacement |
-|---|---|---|---|
+| ------- | -------------- | ------------- | -------------------- |
 
 ### Removed Packages
 
 | Project | Package | Replacement |
-|---|---|---|
+| ------- | ------- | ----------- |
 
 ### Known Incompatible NuGet Dependencies
 
 | Project | Package | Reason | Result |
-|---|---|---|---|
+| ------- | ------- | ------ | ------ |
 
 > Components with any incompatible dependency are marked `blocked` in the discovery report and excluded from the automated batch .
 
@@ -63,13 +63,13 @@ For each `ready` component:
 
 #### Package edits
 
-| Package | From | To | Source (config / replacements) |
-|---|---|---|---|
+| Package | From | To  | Source (config / replacements) |
+| ------- | ---- | --- | ------------------------------ |
 
 #### Functions-specific edits (if applicable)
 
 | File | Change | Reason |
-|---|---|---|
+| ---- | ------ | ------ |
 
 ---
 

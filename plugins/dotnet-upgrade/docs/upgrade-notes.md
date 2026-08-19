@@ -7,17 +7,17 @@ during the .NET 10 upgrade. Maintained by `dotnet-build-test-fix` skill.
 
 ## Decision Log
 
-| Date | Project | Decision | Rationale |
-|---|---|---|---|
-| _(populated during upgrade)_ | | | |
+| Date                         | Project | Decision | Rationale |
+| ---------------------------- | ------- | -------- | --------- |
+| _(populated during upgrade)_ |         |          |           |
 
 ---
 
 ## Manual Fixes Applied
 
-| Date | Project | File | Change Summary |
-|---|---|---|---|
-| _(populated during upgrade)_ | | | |
+| Date                         | Project | File | Change Summary |
+| ---------------------------- | ------- | ---- | -------------- |
+| _(populated during upgrade)_ |         |      |                |
 
 ---
 
@@ -25,6 +25,6 @@ during the .NET 10 upgrade. Maintained by `dotnet-build-test-fix` skill.
 
 Issues identified but not resolved during this upgrade cycle:
 
-| Project | Issue | Recommended Action |
-|---|---|---|
-| _(populated during upgrade)_ | | |
+| Project                      | Issue | Recommended Action |
+| ---------------------------- | ----- | ------------------ |
+| _(populated during upgrade)_ |       |                    |

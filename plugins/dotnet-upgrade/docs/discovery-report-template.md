@@ -12,28 +12,28 @@
 
 ## Scope
 
-| Field | Value |
-|---|---|
-| Solutions in scope | _list_ |
-| Projects in scope | _count_ |
-| Excluded | _list_ |
-| Out-of-scope (e.g. `.sqlproj`) | _list_ |
+| Field                          | Value   |
+| ------------------------------ | ------- |
+| Solutions in scope             | _list_  |
+| Projects in scope              | _count_ |
+| Excluded                       | _list_  |
+| Out-of-scope (e.g. `.sqlproj`) | _list_  |
 
 ---
 
 ## Projects
 
 | Project | Type | Path | Current TFM | SDK | Key Packages | Readiness | Reason |
-|---|---|---|---|---|---|---|---|
+| ------- | ---- | ---- | ----------- | --- | ------------ | --------- | ------ |
 
-### Readiness values 
+### Readiness values
 
-| Label | Meaning | Batch action |
-|---|---|---|
-| ✅ `ready` | Upgrade can proceed | Included in automated batch |
-| ⚠️ `manual review needed` | Deprecated API / multi-target / test-framework concern | Surfaced before edits; user decides |
-| ⛔ `blocked` | A required package has no version compatible with `targetDotnetVersion` | Excluded from batch; recorded in `manual-review-list.md` |
-| ⏭ `out of scope` | Excluded by config or unsupported SDK | Listed for audit only |
+| Label                     | Meaning                                                                 | Batch action                                             |
+| ------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------- |
+| ✅ `ready`                | Upgrade can proceed                                                     | Included in automated batch                              |
+| ⚠️ `manual review needed` | Deprecated API / multi-target / test-framework concern                  | Surfaced before edits; user decides                      |
+| ⛔ `blocked`              | A required package has no version compatible with `targetDotnetVersion` | Excluded from batch; recorded in `manual-review-list.md` |
+| ⏭ `out of scope`          | Excluded by config or unsupported SDK                                   | Listed for audit only                                    |
 
 ---
 
@@ -49,6 +49,6 @@
 ## Batch Plan
 
 | Batch # | Components | Readiness | Notes |
-|---|---|---|---|
+| ------- | ---------- | --------- | ----- |
 
 > Batches are sized by `batchSize` (default 3). `blocked` and `out of scope` components are not counted toward batch slots.

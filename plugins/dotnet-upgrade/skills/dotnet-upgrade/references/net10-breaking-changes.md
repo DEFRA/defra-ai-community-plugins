@@ -29,12 +29,12 @@
 
 ## Removed APIs
 
-| API | Replacement |
-|---|---|
-| `BinaryFormatter` | `System.Text.Json` or `System.Runtime.Serialization` |
-| `Hashtable` (in new code) | `Dictionary<TKey, TValue>` |
-| Obsolete `WebClient` | `HttpClient` |
-| `Newtonsoft.Json` (not removed, but migrate) | `System.Text.Json` |
+| API                                          | Replacement                                          |
+| -------------------------------------------- | ---------------------------------------------------- |
+| `BinaryFormatter`                            | `System.Text.Json` or `System.Runtime.Serialization` |
+| `Hashtable` (in new code)                    | `Dictionary<TKey, TValue>`                           |
+| Obsolete `WebClient`                         | `HttpClient`                                         |
+| `Newtonsoft.Json` (not removed, but migrate) | `System.Text.Json`                                   |
 
 ## NuGet Package Compatibility
 

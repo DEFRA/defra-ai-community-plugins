@@ -57,8 +57,8 @@
 
 ## Removed / Obsolete APIs
 
-| API | Replacement |
-|---|---|
-| `IWebHostBuilder.Configure(Action<IApplicationBuilder>)` | Use `WebApplication` builder pattern |
-| `WebHost.CreateDefaultBuilder()` (legacy) | Use `WebApplication.CreateBuilder()` |
+| API                                                             | Replacement                                    |
+| --------------------------------------------------------------- | ---------------------------------------------- |
+| `IWebHostBuilder.Configure(Action<IApplicationBuilder>)`        | Use `WebApplication` builder pattern           |
+| `WebHost.CreateDefaultBuilder()` (legacy)                       | Use `WebApplication.CreateBuilder()`           |
 | `app.UseRouting()` before `app.UseEndpoints()` explicit pattern | Still works but not required with minimal APIs |

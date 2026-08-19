@@ -11,25 +11,25 @@
 
 ## Summary
 
-| Metric | Value |
-|---|---|
-| Components attempted | — |
-| Components `Done` | — |
-| Components `Reverted`  | — |
-| Components `Blocked` | — |
-| Packages updated | — |
-| Packages replaced | — |
-| Internal libraries rebuilt | — |
-| Build errors resolved | — |
-| Test failures resolved | — |
-| Outstanding blockers | — |
+| Metric                     | Value |
+| -------------------------- | ----- |
+| Components attempted       | —     |
+| Components `Done`          | —     |
+| Components `Reverted`      | —     |
+| Components `Blocked`       | —     |
+| Packages updated           | —     |
+| Packages replaced          | —     |
+| Internal libraries rebuilt | —     |
+| Build errors resolved      | —     |
+| Test failures resolved     | —     |
+| Outstanding blockers       | —     |
 
 ---
 
 ## Project Outcomes
 
 | Project | Type | From TFM | To TFM | Status | Branch | Commit | Notes |
-|---|---|---|---|---|---|---|---|
+| ------- | ---- | -------- | ------ | ------ | ------ | ------ | ----- |
 
 > Status values: `Done` / `Partial` / `Reverted` / `Blocked` / `Skipped`.
 
@@ -44,21 +44,21 @@
 ## Internal Library Impact
 
 | Library | Source | Consumer Projects | Action | Status |
-|---|---|---|---|---|
+| ------- | ------ | ----------------- | ------ | ------ |
 
 ---
 
 ## Breaking Changes Resolved
 
 | Area | Change | Resolution |
-|---|---|---|
+| ---- | ------ | ---------- |
 
 ---
 
 ## Azure Functions Compatibility
 
 | Project | host.json Bundle | Worker Packages | Startup Pattern | Status |
-|---|---|---|---|---|
+| ------- | ---------------- | --------------- | --------------- | ------ |
 
 ---
 
@@ -76,18 +76,18 @@ Tests:  PENDING
 > Full list: [docs/manual-review-list.md](manual-review-list.md) .
 
 | Project | Issue | Recommendation |
-|---|---|---|
+| ------- | ----- | -------------- |
 
 ---
 
 ## Source-Control Summary
 
-| Field | Value |
-|---|---|
-| Branches created | _(per branchNamingTemplate)_ |
-| Commits created | _(component, SHA)_ |
-| Pushes performed | **none** — never automatic |
-| PRs opened / merges | **none** — never automatic |
+| Field               | Value                        |
+| ------------------- | ---------------------------- |
+| Branches created    | _(per branchNamingTemplate)_ |
+| Commits created     | _(component, SHA)_           |
+| Pushes performed    | **none** — never automatic   |
+| PRs opened / merges | **none** — never automatic   |
 
 > Per-run batch report: `docs/upgrade-reports/<yyyyMMdd>.md`.
 
@@ -126,6 +126,7 @@ Compose the per-major links from `targetDotnetVersion` (substitute `<major>`):
 ## Future Upgrade Baseline
 
 This report is the baseline for the next upgrade cycle. To retarget:
+
 1. Update `targetDotnetVersion` in `config/upgrade-agent.md`.
 2. Refresh reference docs in `skills/dotnet-upgrade/references/` for the new major.
 3. Skills remain valid; only breaking-change references change.

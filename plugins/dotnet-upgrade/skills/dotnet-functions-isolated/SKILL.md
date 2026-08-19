@@ -6,12 +6,15 @@ description: Validates and aligns Azure Functions v4 Isolated Worker projects wi
 # dotnet-functions-isolated (Phase D — pre-build)
 
 ## Goal
+
 Validate and (minimally) align Functions Isolated projects with `targetDotnetVersion` **before** Phase E build/test runs, so structural Functions issues (host.json bundle, Program.cs pattern, worker SDK swap) don't masquerade as cryptic build errors.
 
 ## Inheritance
+
 Runtime inputs, scope rules, internal-feed policy, and guardrails come from **[../../agents/dotnet-upgrade.agent.md](../../agents/dotnet-upgrade.agent.md)**. Only processes projects classified as `Azure Functions Isolated` by `dotnet-inventory`.
 
 ## Validation flow
+
 1. **Isolated model confirmed**
    - Must NOT use `Microsoft.NET.Sdk.Functions`.
    - Must use `Microsoft.Azure.Functions.Worker.Sdk`.
@@ -28,11 +31,14 @@ Runtime inputs, scope rules, internal-feed policy, and guardrails come from **[.
 7. Apply **minimal** targeted fixes only when needed.
 
 ## Common worker extensions to check
+
 HTTP, HTTP+AspNetCore, Timer, Service Bus, Storage, Event Hubs, Cosmos DB.
 
 ## Output
+
 - `docs/upgrade-notes.md`
 - `docs/upgrade-report.md` → "Azure Functions Compatibility" section
 
 ## Handoff
+
 After Phase D validation/alignment → Phase E (`dotnet-build-test-fix`) builds and tests the now-structurally-correct project.

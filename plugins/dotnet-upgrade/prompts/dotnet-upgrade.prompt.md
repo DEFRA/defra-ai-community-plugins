@@ -10,13 +10,13 @@ Use this prompt to drive the `dotnet-upgrade` agent from VS Code Copilot Chat or
 
 ## Quick verbs
 
-| Verb | What it does |
-|---|---|
-| `assess` | Run **Assessment only** — writes `docs/dotnet-upgrade-assessment-<sln>-<date>.md`, then stops. |
+| Verb                  | What it does                                                                                         |
+| --------------------- | ---------------------------------------------------------------------------------------------------- |
+| `assess`              | Run **Assessment only** — writes `docs/dotnet-upgrade-assessment-<sln>-<date>.md`, then stops.       |
 | `preview` / `dry-run` | Force `dryRun: true` for this run — discovery report + diff preview, no file mutations, no branches. |
-| `upgrade` | Full run — gates, batched phases A–F, per-component commits. |
-| `resume` | Continue a partially upgraded scope; skip components already on target TFM. |
-| `single <path>` | Upgrade one `.csproj` only; skip Phase A; append to existing report. |
+| `upgrade`             | Full run — gates, batched phases A–F, per-component commits.                                         |
+| `resume`              | Continue a partially upgraded scope; skip components already on target TFM.                          |
+| `single <path>`       | Upgrade one `.csproj` only; skip Phase A; append to existing report.                                 |
 
 ## Default flow
 
@@ -28,7 +28,7 @@ Use this prompt to drive the `dotnet-upgrade` agent from VS Code Copilot Chat or
 
 ## Outputs
 
-- `docs/upgrade-inventory.md` 
+- `docs/upgrade-inventory.md`
 - `docs/package-replacements.md`
 - `docs/upgrade-notes.md`
 - `docs/manual-review-list.md`

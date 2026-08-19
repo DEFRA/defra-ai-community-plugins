@@ -20,31 +20,33 @@
 ### Analyzed Projects
 
 | Project | Type | Path | Current TFM | Notes |
-|---|---|---|---|---|
+| ------- | ---- | ---- | ----------- | ----- |
 
 ### Project References and Cross-Solution Impact
 
 | Project | Depends On | Dependency Type | Impact on Upgrade |
-|---|---|---|---|
+| ------- | ---------- | --------------- | ----------------- |
 
 ---
 
 ## Package Inventory (Direct)
 
 | Project | Package | Current Version | .NET Update Type | Notes (Breaking/Deprecated/Vulnerability) |
-|---|---|---|---|---|
+| ------- | ------- | --------------- | ---------------- | ----------------------------------------- |
 
 ### Common / Internal Library Status
 
 | Library / Package | Current Version | Feed Status | Required Action | Consumer Impact |
-|---|---|---|---|---|
+| ----------------- | --------------- | ----------- | --------------- | --------------- |
 
 Feed status values:
+
 - `Current`
 - `Newer Available`
 - `No Compatible Target Version`
 
 Allowed `.NET Update Type` values:
+
 - `Package only (to X.Y.Z)`
 - `Package only (upgrade to X.Y+)`
 - `Package only (rebuild internal)`
@@ -57,40 +59,41 @@ Allowed `.NET Update Type` values:
 ### High-Risk Packages (Action Required)
 
 | Project | Package / Area | Affected Files / Methods | Required Change | Downstream Impact |
-|---|---|---|---|---|
+| ------- | -------------- | ------------------------ | --------------- | ----------------- |
 
 ### Packages to Upgrade (Strongly Recommended)
 
 | Project | Package | Current Version | Recommended Version | Reason |
-|---|---|---|---|---|
+| ------- | ------- | --------------- | ------------------- | ------ |
 
 ### Internal Libraries
 
 | Library | Required Action | Rebuild Needed | Consumer Impact |
-|---|---|---|---|
+| ------- | --------------- | -------------- | --------------- |
 
 ---
 
 ## Breaking Changes for .NET Upgrade
 
 | Project | Breaking Change | Affected Files / Methods | Impact | Mitigation |
-|---|---|---|---|---|
+| ------- | --------------- | ------------------------ | ------ | ---------- |
 
 ---
 
 ## Vulnerability Findings
 
 | Project | Package | Severity | Advisory ID | CVE | Recommended Version | Mitigation |
-|---|---|---|---|---|---|---|
+| ------- | ------- | -------- | ----------- | --- | ------------------- | ---------- |
 
 ---
 
 ## Deprecated / Legacy Scan
 
 | Pattern | Project | File | Affected Type / Method | Required Replacement |
-|---|---|---|---|---|
+| ------- | ------- | ---- | ---------------------- | -------------------- |
 
 Minimum scan patterns:
+
 - `AzureServiceTokenProvider`
 - `AddAzureKeyVault`
 - `Microsoft.Extensions.Configuration.AzureKeyVault`
@@ -137,5 +140,6 @@ The template (`dotnet-upgrade-assessment-template.md`) is never modified by the 
 - Azure Functions runtime versions: `https://learn.microsoft.com/azure/azure-functions/functions-versions`
 
 Example for `targetDotnetVersion: net10.0`:
+
 - `https://learn.microsoft.com/dotnet/core/whats-new/dotnet-10/overview`
 - `https://learn.microsoft.com/dotnet/core/compatibility/10`

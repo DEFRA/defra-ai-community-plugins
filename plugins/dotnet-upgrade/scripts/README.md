@@ -21,12 +21,12 @@ hooks:
 
 ## Suggested scripts (none mandatory)
 
-| File | When to use |
-|---|---|
-| `pre-upgrade-validate.ps1` | Verify clean working tree, branch is correct, no uncommitted changes. |
-| `backup-config.ps1` | Snapshot `global.json` / `Directory.Packages.props` to a local backup folder before edits. |
-| `post-upgrade-build.ps1` | Run a full solution build outside the batched scope for confidence. |
-| `post-upgrade-report.ps1` | Copy the consolidated batch report to a shared location. |
+| File                       | When to use                                                                                |
+| -------------------------- | ------------------------------------------------------------------------------------------ |
+| `pre-upgrade-validate.ps1` | Verify clean working tree, branch is correct, no uncommitted changes.                      |
+| `backup-config.ps1`        | Snapshot `global.json` / `Directory.Packages.props` to a local backup folder before edits. |
+| `post-upgrade-build.ps1`   | Run a full solution build outside the batched scope for confidence.                        |
+| `post-upgrade-report.ps1`  | Copy the consolidated batch report to a shared location.                                   |
 
 ## Authoring tips
 
