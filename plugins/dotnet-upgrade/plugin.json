@@ -1,0 +1,15 @@
+{
+  "$schema": "../../schemas/plugin.schema.json",
+  "name": "dotnet-upgrade",
+  "description": "End-to-end .NET upgrade agent for multi-solution batched upgrades. Discovers components, plans, dry-runs, executes TFM + package upgrades, builds/tests, reverts failures to manual-review, and produces per-component commits with a consolidated batch report.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Defra Trade"
+  },
+  "license": "OGL-UK-3.0",
+  "homepage": "https://github.com/DEFRA/defra-ai-community-plugins/tree/main/plugins/dotnet-upgrade",
+  "repository": "https://github.com/DEFRA/defra-ai-community-plugins",
+  "category": "development",
+  "keywords": ["dotnet", "upgrade", "modernization", "nuget", "azure-functions"],
+  "dependencies": []
+}
