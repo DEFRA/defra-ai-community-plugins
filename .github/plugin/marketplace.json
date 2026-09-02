@@ -7,5 +7,13 @@
     "type": "organization",
     "name": "DEFRA"
   },
-  "plugins": []
+  "plugins": [
+    {
+      "name": "dotnet-upgrade",
+      "description": "End-to-end .NET upgrade agent for multi-solution batched upgrades. Discovers components, plans, dry-runs, executes TFM + package upgrades, builds/tests, reverts failures to manual-review, and produces per-component commits with a consolidated batch report.",
+      "version": "0.1.0",
+      "source": "plugins/dotnet-upgrade",
+      "category": "development"
+    }
+  ]
 }
