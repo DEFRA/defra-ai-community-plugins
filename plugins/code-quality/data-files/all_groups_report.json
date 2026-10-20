@@ -1,0 +1,1399 @@
+{
+  "Sample Group K": {
+    "group_name": "Sample Group K",
+    "platform_filter": "sonarcloud",
+    "total_projects": 17,
+    "total_projects_in_map": 17,
+    "matched": 17,
+    "unmatched": [],
+    "total_loc": 264091,
+    "quality_gate": {
+      "passed": 8,
+      "failed": 8,
+      "unknown": 1
+    },
+    "code_quality": {
+      "bugs": 37,
+      "vulnerabilities": 2,
+      "code_smells": 1115,
+      "security_hotspots": 44,
+      "avg_coverage": 68.3,
+      "avg_duplication": 2.4,
+      "repos_below_90_cov_overall": 6,
+      "repos_below_90_cov_new": 4,
+      "repos_above_3_dup_overall": 4,
+      "repos_above_3_dup_new": 3
+    },
+    "severity_breakdown": {
+      "bugs": {
+        "blocker": 0,
+        "high": 19,
+        "medium": 18,
+        "low": 0,
+        "info": 0
+      },
+      "vulnerabilities": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 1,
+        "low": 1,
+        "info": 0
+      },
+      "code_smells": {
+        "blocker": 0,
+        "high": 34,
+        "medium": 841,
+        "low": 230,
+        "info": 10
+      }
+    },
+    "governance": {
+      "inactive_projects": [
+        "sample-repo-550",
+        "sample-repo-288",
+        "sample-repo-318",
+        "sample-repo-468",
+        "sample-repo-469",
+        "sample-repo-323",
+        "sample-repo-516"
+      ],
+      "inactive_branches": 4,
+      "false_positives": 121,
+      "false_positives_no_justification": 17,
+      "suppressions": 386,
+      "suppressions_no_justification": 52,
+      "missing_config": [],
+      "high_duplication": [],
+      "branch_issues": [
+        {
+          "project_name": "sample-repo-318",
+          "platform": "SonarCloud",
+          "main_branch": "master",
+          "non_main_branches": 1,
+          "inactive_branches_90": 1,
+          "repos_non_standard_main_branch": false,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "1 inactive branches (90+ days)"
+        },
+        {
+          "project_name": "sample-repo-468",
+          "platform": "SonarCloud",
+          "main_branch": "develop",
+          "non_main_branches": 3,
+          "inactive_branches_90": 3,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'develop' (expected main or master); 3 inactive branches (90+ days)"
+        }
+      ]
+    },
+    "qg_failed_projects": [
+      {
+        "name": "sample-repo-388",
+        "reason": "reliability rating = C, 1 medium issues"
+      },
+      {
+        "name": "sample-repo-389",
+        "reason": "reliability rating = C, 1 medium issues"
+      },
+      {
+        "name": "sample-repo-131",
+        "reason": "reliability rating = C, 61.3% coverage, 1 high issues, 21 medium issues"
+      },
+      {
+        "name": "sample-repo-118",
+        "reason": "2 high issues, 1 medium issues"
+      },
+      {
+        "name": "sample-repo-354",
+        "reason": "reliability rating = C, 9 medium issues"
+      },
+      {
+        "name": "sample-repo-471",
+        "reason": "reliability rating = C, 3 medium issues"
+      },
+      {
+        "name": "sample-repo-216",
+        "reason": "reliability rating = C, 7 medium issues"
+      },
+      {
+        "name": "sample-repo-516",
+        "reason": "reliability rating = C, 32.78% coverage, 24.2% duplicates, 1 high issues, 17 medium issues"
+      }
+    ],
+    "status": "Red"
+  },
+  "Sample Group M": {
+    "group_name": "Sample Group M",
+    "platform_filter": "sonarcloud",
+    "total_projects": 5,
+    "total_projects_in_map": 6,
+    "matched": 5,
+    "unmatched": ["sample-repo-310"],
+    "total_loc": 44189,
+    "quality_gate": {
+      "passed": 5,
+      "failed": 0,
+      "unknown": 0
+    },
+    "code_quality": {
+      "bugs": 2,
+      "vulnerabilities": 0,
+      "code_smells": 38,
+      "security_hotspots": 0,
+      "avg_coverage": 95.9,
+      "avg_duplication": 0.2,
+      "repos_below_90_cov_overall": 0,
+      "repos_below_90_cov_new": 0,
+      "repos_above_3_dup_overall": 0,
+      "repos_above_3_dup_new": 0
+    },
+    "severity_breakdown": {
+      "bugs": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 2,
+        "low": 0,
+        "info": 0
+      },
+      "vulnerabilities": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "code_smells": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 26,
+        "info": 12
+      }
+    },
+    "governance": {
+      "inactive_projects": [],
+      "inactive_branches": 0,
+      "false_positives": 5,
+      "false_positives_no_justification": 1,
+      "suppressions": 1,
+      "suppressions_no_justification": 1,
+      "missing_config": [],
+      "high_duplication": [],
+      "branch_issues": []
+    },
+    "qg_failed_projects": [],
+    "status": "Amber"
+  },
+  "Sample Group E": {
+    "group_name": "Sample Group E",
+    "platform_filter": "sonarcloud",
+    "total_projects": 3,
+    "total_projects_in_map": 3,
+    "matched": 3,
+    "unmatched": [],
+    "total_loc": 30081,
+    "quality_gate": {
+      "passed": 3,
+      "failed": 0,
+      "unknown": 0
+    },
+    "code_quality": {
+      "bugs": 2,
+      "vulnerabilities": 0,
+      "code_smells": 68,
+      "security_hotspots": 0,
+      "avg_coverage": 96.1,
+      "avg_duplication": 0.2,
+      "repos_below_90_cov_overall": 0,
+      "repos_below_90_cov_new": 0,
+      "repos_above_3_dup_overall": 0,
+      "repos_above_3_dup_new": 0
+    },
+    "severity_breakdown": {
+      "bugs": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 2,
+        "low": 0,
+        "info": 0
+      },
+      "vulnerabilities": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "code_smells": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 16,
+        "low": 49,
+        "info": 3
+      }
+    },
+    "governance": {
+      "inactive_projects": [],
+      "inactive_branches": 0,
+      "false_positives": 16,
+      "false_positives_no_justification": 15,
+      "suppressions": 8,
+      "suppressions_no_justification": 4,
+      "missing_config": [],
+      "high_duplication": [],
+      "branch_issues": []
+    },
+    "qg_failed_projects": [],
+    "status": "Amber"
+  },
+  "Sample Group D": {
+    "group_name": "Sample Group D",
+    "platform_filter": "sonarcloud",
+    "total_projects": 10,
+    "total_projects_in_map": 10,
+    "matched": 10,
+    "unmatched": [],
+    "total_loc": 25389,
+    "quality_gate": {
+      "passed": 10,
+      "failed": 0,
+      "unknown": 0
+    },
+    "code_quality": {
+      "bugs": 0,
+      "vulnerabilities": 0,
+      "code_smells": 0,
+      "security_hotspots": 0,
+      "avg_coverage": 95.9,
+      "avg_duplication": 0.0,
+      "repos_below_90_cov_overall": 1,
+      "repos_below_90_cov_new": 0,
+      "repos_above_3_dup_overall": 0,
+      "repos_above_3_dup_new": 0
+    },
+    "severity_breakdown": {
+      "bugs": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "vulnerabilities": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "code_smells": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      }
+    },
+    "governance": {
+      "inactive_projects": [],
+      "inactive_branches": 0,
+      "false_positives": 10,
+      "false_positives_no_justification": 4,
+      "suppressions": 24,
+      "suppressions_no_justification": 23,
+      "missing_config": [],
+      "high_duplication": [],
+      "branch_issues": []
+    },
+    "qg_failed_projects": [],
+    "status": "Green"
+  },
+  "Sample Group A": {
+    "group_name": "Sample Group A",
+    "platform_filter": "sonarcloud",
+    "total_projects": 11,
+    "total_projects_in_map": 19,
+    "matched": 11,
+    "unmatched": [
+      "sample-repo-181",
+      "sample-repo-200",
+      "sample-repo-165",
+      "sample-repo-485",
+      "sample-repo-333",
+      "sample-repo-332",
+      "sample-repo-429",
+      "sample-repo-368"
+    ],
+    "total_loc": 39416,
+    "quality_gate": {
+      "passed": 11,
+      "failed": 0,
+      "unknown": 0
+    },
+    "code_quality": {
+      "bugs": 0,
+      "vulnerabilities": 0,
+      "code_smells": 61,
+      "security_hotspots": 0,
+      "avg_coverage": 96.0,
+      "avg_duplication": 0.1,
+      "repos_below_90_cov_overall": 0,
+      "repos_below_90_cov_new": 0,
+      "repos_above_3_dup_overall": 0,
+      "repos_above_3_dup_new": 0
+    },
+    "severity_breakdown": {
+      "bugs": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "vulnerabilities": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "code_smells": {
+        "blocker": 0,
+        "high": 2,
+        "medium": 19,
+        "low": 40,
+        "info": 0
+      }
+    },
+    "governance": {
+      "inactive_projects": [],
+      "inactive_branches": 0,
+      "false_positives": 2,
+      "false_positives_no_justification": 0,
+      "suppressions": 14,
+      "suppressions_no_justification": 2,
+      "missing_config": [],
+      "high_duplication": [],
+      "branch_issues": []
+    },
+    "qg_failed_projects": [],
+    "status": "Red"
+  },
+  "Sample Group C": {
+    "group_name": "Sample Group C",
+    "platform_filter": "sonarcloud",
+    "total_projects": 16,
+    "total_projects_in_map": 16,
+    "matched": 16,
+    "unmatched": [],
+    "total_loc": 52898,
+    "quality_gate": {
+      "passed": 15,
+      "failed": 1,
+      "unknown": 0
+    },
+    "code_quality": {
+      "bugs": 9,
+      "vulnerabilities": 5,
+      "code_smells": 446,
+      "security_hotspots": 4,
+      "avg_coverage": 85.9,
+      "avg_duplication": 2.3,
+      "repos_below_90_cov_overall": 4,
+      "repos_below_90_cov_new": 1,
+      "repos_above_3_dup_overall": 5,
+      "repos_above_3_dup_new": 0
+    },
+    "severity_breakdown": {
+      "bugs": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 1,
+        "low": 8,
+        "info": 0
+      },
+      "vulnerabilities": {
+        "blocker": 2,
+        "high": 0,
+        "medium": 0,
+        "low": 3,
+        "info": 0
+      },
+      "code_smells": {
+        "blocker": 0,
+        "high": 6,
+        "medium": 338,
+        "low": 90,
+        "info": 12
+      }
+    },
+    "governance": {
+      "inactive_projects": [
+        "sample-repo-070",
+        "sample-repo-054",
+        "sample-repo-057",
+        "sample-repo-022",
+        "sample-repo-351",
+        "sample-repo-071",
+        "sample-repo-265",
+        "sample-repo-049",
+        "sample-repo-031",
+        "sample-repo-293",
+        "sample-repo-015",
+        "sample-repo-191",
+        "sample-repo-157"
+      ],
+      "inactive_branches": 19,
+      "false_positives": 18,
+      "false_positives_no_justification": 1,
+      "suppressions": 175,
+      "suppressions_no_justification": 52,
+      "missing_config": [],
+      "high_duplication": [],
+      "branch_issues": [
+        {
+          "project_name": "sample-repo-082",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 3,
+          "inactive_branches_90": 0,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": false,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master)"
+        },
+        {
+          "project_name": "sample-repo-133",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 2,
+          "inactive_branches_90": 1,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master); 1 inactive branches (90+ days)"
+        },
+        {
+          "project_name": "sample-repo-065",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 2,
+          "inactive_branches_90": 0,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": false,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master)"
+        },
+        {
+          "project_name": "sample-repo-022",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 1,
+          "inactive_branches_90": 1,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master); 1 inactive branches (90+ days)"
+        },
+        {
+          "project_name": "sample-repo-351",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 1,
+          "inactive_branches_90": 1,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master); 1 inactive branches (90+ days)"
+        },
+        {
+          "project_name": "sample-repo-265",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 2,
+          "inactive_branches_90": 2,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master); 2 inactive branches (90+ days)"
+        },
+        {
+          "project_name": "sample-repo-049",
+          "platform": "SonarCloud",
+          "main_branch": "master",
+          "non_main_branches": 1,
+          "inactive_branches_90": 1,
+          "repos_non_standard_main_branch": false,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "1 inactive branches (90+ days)"
+        },
+        {
+          "project_name": "sample-repo-031",
+          "platform": "SonarCloud",
+          "main_branch": "master",
+          "non_main_branches": 1,
+          "inactive_branches_90": 1,
+          "repos_non_standard_main_branch": false,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "1 inactive branches (90+ days)"
+        },
+        {
+          "project_name": "sample-repo-293",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 6,
+          "inactive_branches_90": 6,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master); 6 inactive branches (90+ days)"
+        },
+        {
+          "project_name": "sample-repo-191",
+          "platform": "SonarCloud",
+          "main_branch": "Dev",
+          "non_main_branches": 3,
+          "inactive_branches_90": 3,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'Dev' (expected main or master); 3 inactive branches (90+ days)"
+        },
+        {
+          "project_name": "sample-repo-157",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 3,
+          "inactive_branches_90": 3,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master); 3 inactive branches (90+ days)"
+        }
+      ]
+    },
+    "qg_failed_projects": [
+      {
+        "name": "sample-repo-082",
+        "reason": "1 medium issues"
+      }
+    ],
+    "status": "Red"
+  },
+  "Sample Group B": {
+    "group_name": "Sample Group B",
+    "platform_filter": "sonarcloud",
+    "total_projects": 19,
+    "total_projects_in_map": 19,
+    "matched": 19,
+    "unmatched": [],
+    "total_loc": 129374,
+    "quality_gate": {
+      "passed": 17,
+      "failed": 2,
+      "unknown": 0
+    },
+    "code_quality": {
+      "bugs": 32,
+      "vulnerabilities": 1,
+      "code_smells": 2302,
+      "security_hotspots": 9,
+      "avg_coverage": 92.1,
+      "avg_duplication": 3.4,
+      "repos_below_90_cov_overall": 6,
+      "repos_below_90_cov_new": 2,
+      "repos_above_3_dup_overall": 7,
+      "repos_above_3_dup_new": 0
+    },
+    "severity_breakdown": {
+      "bugs": {
+        "blocker": 0,
+        "high": 18,
+        "medium": 14,
+        "low": 0,
+        "info": 0
+      },
+      "vulnerabilities": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 1,
+        "info": 0
+      },
+      "code_smells": {
+        "blocker": 4,
+        "high": 117,
+        "medium": 1839,
+        "low": 284,
+        "info": 58
+      }
+    },
+    "governance": {
+      "inactive_projects": ["sample-repo-098"],
+      "inactive_branches": 1,
+      "false_positives": 15,
+      "false_positives_no_justification": 14,
+      "suppressions": 3,
+      "suppressions_no_justification": 0,
+      "missing_config": [],
+      "high_duplication": [
+        {
+          "name": "sample-repo-113",
+          "duplication_pct": 26.4
+        }
+      ],
+      "branch_issues": [
+        {
+          "project_name": "sample-repo-099",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 2,
+          "inactive_branches_90": 0,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": false,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master)"
+        },
+        {
+          "project_name": "sample-repo-267",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 2,
+          "inactive_branches_90": 0,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": false,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master)"
+        },
+        {
+          "project_name": "sample-repo-134",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 5,
+          "inactive_branches_90": 0,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": false,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master)"
+        },
+        {
+          "project_name": "sample-repo-292",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 1,
+          "inactive_branches_90": 0,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": false,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master)"
+        },
+        {
+          "project_name": "sample-repo-039",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 2,
+          "inactive_branches_90": 0,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": false,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master)"
+        },
+        {
+          "project_name": "sample-repo-012",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 2,
+          "inactive_branches_90": 1,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master); 1 inactive branches (90+ days)"
+        },
+        {
+          "project_name": "sample-repo-029",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 1,
+          "inactive_branches_90": 0,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": false,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master)"
+        },
+        {
+          "project_name": "sample-repo-041",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 2,
+          "inactive_branches_90": 0,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": false,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master)"
+        },
+        {
+          "project_name": "sample-repo-320",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 2,
+          "inactive_branches_90": 0,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": false,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master)"
+        },
+        {
+          "project_name": "sample-repo-113",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 1,
+          "inactive_branches_90": 0,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": false,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master)"
+        },
+        {
+          "project_name": "sample-repo-018",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 1,
+          "inactive_branches_90": 0,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": false,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master)"
+        }
+      ]
+    },
+    "qg_failed_projects": [
+      {
+        "name": "sample-repo-134",
+        "reason": "33.3% coverage, 1 medium issues"
+      },
+      {
+        "name": "sample-repo-016",
+        "reason": "0% coverage, 1 medium issues"
+      }
+    ],
+    "status": "Red"
+  },
+  "Sample Group F": {
+    "group_name": "Sample Group F",
+    "platform_filter": "sonarcloud",
+    "total_projects": 14,
+    "total_projects_in_map": 15,
+    "matched": 14,
+    "unmatched": ["sample-repo-010"],
+    "total_loc": 111930,
+    "quality_gate": {
+      "passed": 11,
+      "failed": 3,
+      "unknown": 0
+    },
+    "code_quality": {
+      "bugs": 265,
+      "vulnerabilities": 5,
+      "code_smells": 5822,
+      "security_hotspots": 19,
+      "avg_coverage": 71.8,
+      "avg_duplication": 2.8,
+      "repos_below_90_cov_overall": 8,
+      "repos_below_90_cov_new": 1,
+      "repos_above_3_dup_overall": 3,
+      "repos_above_3_dup_new": 0
+    },
+    "severity_breakdown": {
+      "bugs": {
+        "blocker": 13,
+        "high": 97,
+        "medium": 78,
+        "low": 77,
+        "info": 0
+      },
+      "vulnerabilities": {
+        "blocker": 0,
+        "high": 1,
+        "medium": 2,
+        "low": 2,
+        "info": 0
+      },
+      "code_smells": {
+        "blocker": 11,
+        "high": 1157,
+        "medium": 3650,
+        "low": 954,
+        "info": 50
+      }
+    },
+    "governance": {
+      "inactive_projects": [
+        "sample-repo-004",
+        "sample-repo-060",
+        "sample-repo-090",
+        "sample-repo-051",
+        "sample-repo-135",
+        "sample-repo-027"
+      ],
+      "inactive_branches": 12,
+      "false_positives": 4,
+      "false_positives_no_justification": 0,
+      "suppressions": 8,
+      "suppressions_no_justification": 3,
+      "missing_config": [],
+      "high_duplication": [],
+      "branch_issues": [
+        {
+          "project_name": "sample-repo-116",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 6,
+          "inactive_branches_90": 0,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": false,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master)"
+        },
+        {
+          "project_name": "sample-repo-136",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 8,
+          "inactive_branches_90": 0,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": false,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master)"
+        },
+        {
+          "project_name": "sample-repo-008",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 2,
+          "inactive_branches_90": 1,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master); 1 inactive branches (90+ days)"
+        },
+        {
+          "project_name": "sample-repo-006",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 2,
+          "inactive_branches_90": 1,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master); 1 inactive branches (90+ days)"
+        },
+        {
+          "project_name": "sample-repo-026",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 2,
+          "inactive_branches_90": 1,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master); 1 inactive branches (90+ days)"
+        },
+        {
+          "project_name": "sample-repo-060",
+          "platform": "SonarCloud",
+          "main_branch": "master",
+          "non_main_branches": 3,
+          "inactive_branches_90": 3,
+          "repos_non_standard_main_branch": false,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "3 inactive branches (90+ days)"
+        },
+        {
+          "project_name": "sample-repo-215",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 3,
+          "inactive_branches_90": 1,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master); 1 inactive branches (90+ days)"
+        },
+        {
+          "project_name": "sample-repo-135",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 3,
+          "inactive_branches_90": 3,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master); 3 inactive branches (90+ days)"
+        },
+        {
+          "project_name": "sample-repo-027",
+          "platform": "SonarCloud",
+          "main_branch": "dev",
+          "non_main_branches": 2,
+          "inactive_branches_90": 2,
+          "repos_non_standard_main_branch": true,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "Non-standard main branch 'dev' (expected main or master); 2 inactive branches (90+ days)"
+        }
+      ]
+    },
+    "qg_failed_projects": [
+      {
+        "name": "sample-repo-116",
+        "reason": "0% coverage, 4 high issues, 5 medium issues"
+      },
+      {
+        "name": "sample-repo-021",
+        "reason": "1 medium issues"
+      },
+      {
+        "name": "sample-repo-010",
+        "reason": "1 medium issues"
+      }
+    ],
+    "status": "Red"
+  },
+  "Sample Group G": {
+    "group_name": "Sample Group G",
+    "platform_filter": "sonarcloud",
+    "total_projects": 6,
+    "total_projects_in_map": 7,
+    "matched": 6,
+    "unmatched": ["sample-repo-111"],
+    "total_loc": 28525,
+    "quality_gate": {
+      "passed": 3,
+      "failed": 3,
+      "unknown": 0
+    },
+    "code_quality": {
+      "bugs": 50,
+      "vulnerabilities": 0,
+      "code_smells": 62,
+      "security_hotspots": 2,
+      "avg_coverage": 94.4,
+      "avg_duplication": 1.3,
+      "repos_below_90_cov_overall": 1,
+      "repos_below_90_cov_new": 0,
+      "repos_above_3_dup_overall": 1,
+      "repos_above_3_dup_new": 0
+    },
+    "severity_breakdown": {
+      "bugs": {
+        "blocker": 0,
+        "high": 2,
+        "medium": 3,
+        "low": 45,
+        "info": 0
+      },
+      "vulnerabilities": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "code_smells": {
+        "blocker": 0,
+        "high": 1,
+        "medium": 48,
+        "low": 13,
+        "info": 0
+      }
+    },
+    "governance": {
+      "inactive_projects": [],
+      "inactive_branches": 4,
+      "false_positives": 14,
+      "false_positives_no_justification": 3,
+      "suppressions": 0,
+      "suppressions_no_justification": 0,
+      "missing_config": [],
+      "high_duplication": [],
+      "branch_issues": [
+        {
+          "project_name": "sample-repo-048",
+          "platform": "SonarCloud",
+          "main_branch": "main",
+          "non_main_branches": 2,
+          "inactive_branches_90": 1,
+          "repos_non_standard_main_branch": false,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "1 inactive branches (90+ days)"
+        },
+        {
+          "project_name": "sample-repo-112",
+          "platform": "SonarCloud",
+          "main_branch": "main",
+          "non_main_branches": 2,
+          "inactive_branches_90": 1,
+          "repos_non_standard_main_branch": false,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "1 inactive branches (90+ days)"
+        },
+        {
+          "project_name": "sample-repo-132",
+          "platform": "SonarCloud",
+          "main_branch": "main",
+          "non_main_branches": 1,
+          "inactive_branches_90": 1,
+          "repos_non_standard_main_branch": false,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "1 inactive branches (90+ days)"
+        },
+        {
+          "project_name": "sample-repo-095",
+          "platform": "SonarCloud",
+          "main_branch": "main",
+          "non_main_branches": 2,
+          "inactive_branches_90": 1,
+          "repos_non_standard_main_branch": false,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "1 inactive branches (90+ days)"
+        }
+      ]
+    },
+    "qg_failed_projects": [
+      {
+        "name": "sample-repo-390",
+        "reason": "reliability rating = D, 1 high issues, 4 medium issues, new_security_hotspots_reviewed = 66.7"
+      },
+      {
+        "name": "sample-repo-048",
+        "reason": "2 medium issues"
+      },
+      {
+        "name": "sample-repo-095",
+        "reason": "11 medium issues"
+      }
+    ],
+    "status": "Red"
+  },
+  "Sample Group H": {
+    "group_name": "Sample Group H",
+    "platform_filter": "sonarcloud",
+    "total_projects": 1,
+    "total_projects_in_map": 1,
+    "matched": 1,
+    "unmatched": [],
+    "total_loc": 331,
+    "quality_gate": {
+      "passed": 1,
+      "failed": 0,
+      "unknown": 0
+    },
+    "code_quality": {
+      "bugs": 0,
+      "vulnerabilities": 0,
+      "code_smells": 2,
+      "security_hotspots": 0,
+      "avg_coverage": 83.4,
+      "avg_duplication": 0.0,
+      "repos_below_90_cov_overall": 1,
+      "repos_below_90_cov_new": 0,
+      "repos_above_3_dup_overall": 0,
+      "repos_above_3_dup_new": 0
+    },
+    "severity_breakdown": {
+      "bugs": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "vulnerabilities": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "code_smells": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 2,
+        "info": 0
+      }
+    },
+    "governance": {
+      "inactive_projects": [],
+      "inactive_branches": 0,
+      "false_positives": 0,
+      "false_positives_no_justification": 0,
+      "suppressions": 0,
+      "suppressions_no_justification": 0,
+      "missing_config": [],
+      "high_duplication": [],
+      "branch_issues": []
+    },
+    "qg_failed_projects": [],
+    "status": "Green"
+  },
+  "Sample Group J": {
+    "group_name": "Sample Group J",
+    "platform_filter": "sonarcloud",
+    "total_projects": 9,
+    "total_projects_in_map": 9,
+    "matched": 9,
+    "unmatched": [],
+    "total_loc": 45597,
+    "quality_gate": {
+      "passed": 9,
+      "failed": 0,
+      "unknown": 0
+    },
+    "code_quality": {
+      "bugs": 0,
+      "vulnerabilities": 0,
+      "code_smells": 19,
+      "security_hotspots": 1,
+      "avg_coverage": 97.9,
+      "avg_duplication": 0.2,
+      "repos_below_90_cov_overall": 0,
+      "repos_below_90_cov_new": 0,
+      "repos_above_3_dup_overall": 0,
+      "repos_above_3_dup_new": 0
+    },
+    "severity_breakdown": {
+      "bugs": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "vulnerabilities": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "code_smells": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 14,
+        "low": 5,
+        "info": 0
+      }
+    },
+    "governance": {
+      "inactive_projects": ["sample-repo-597"],
+      "inactive_branches": 0,
+      "false_positives": 11,
+      "false_positives_no_justification": 11,
+      "suppressions": 0,
+      "suppressions_no_justification": 0,
+      "missing_config": [],
+      "high_duplication": [],
+      "branch_issues": [
+        {
+          "project_name": "sample-repo-123",
+          "platform": "SonarCloud",
+          "main_branch": "main",
+          "non_main_branches": 11,
+          "inactive_branches_90": 0,
+          "repos_non_standard_main_branch": false,
+          "repos_with_inactive_non_main_branches": false,
+          "repos_with_non_main_branch_count_over_threshold": true,
+          "hygiene_issue": "Review: 11 non-main branches (verify all are active; apply trunk-based or GitFlow hygiene policy)"
+        },
+        {
+          "project_name": "sample-repo-199",
+          "platform": "SonarCloud",
+          "main_branch": "main",
+          "non_main_branches": 14,
+          "inactive_branches_90": 0,
+          "repos_non_standard_main_branch": false,
+          "repos_with_inactive_non_main_branches": false,
+          "repos_with_non_main_branch_count_over_threshold": true,
+          "hygiene_issue": "Review: 14 non-main branches (verify all are active; apply trunk-based or GitFlow hygiene policy)"
+        },
+        {
+          "project_name": "sample-repo-076",
+          "platform": "SonarCloud",
+          "main_branch": "main",
+          "non_main_branches": 11,
+          "inactive_branches_90": 0,
+          "repos_non_standard_main_branch": false,
+          "repos_with_inactive_non_main_branches": false,
+          "repos_with_non_main_branch_count_over_threshold": true,
+          "hygiene_issue": "Review: 11 non-main branches (verify all are active; apply trunk-based or GitFlow hygiene policy)"
+        }
+      ]
+    },
+    "qg_failed_projects": [],
+    "status": "Amber"
+  },
+  "Sample Group L": {
+    "group_name": "Sample Group L",
+    "platform_filter": "sonarcloud",
+    "total_projects": 2,
+    "total_projects_in_map": 2,
+    "matched": 2,
+    "unmatched": [],
+    "total_loc": 11131,
+    "quality_gate": {
+      "passed": 1,
+      "failed": 0,
+      "unknown": 1
+    },
+    "code_quality": {
+      "bugs": 0,
+      "vulnerabilities": 0,
+      "code_smells": 0,
+      "security_hotspots": 0,
+      "avg_coverage": 97.4,
+      "avg_duplication": 0.0,
+      "repos_below_90_cov_overall": 0,
+      "repos_below_90_cov_new": 0,
+      "repos_above_3_dup_overall": 0,
+      "repos_above_3_dup_new": 0
+    },
+    "severity_breakdown": {
+      "bugs": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "vulnerabilities": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "code_smells": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      }
+    },
+    "governance": {
+      "inactive_projects": [],
+      "inactive_branches": 3,
+      "false_positives": 4,
+      "false_positives_no_justification": 2,
+      "suppressions": 1,
+      "suppressions_no_justification": 0,
+      "missing_config": ["sample-repo-129"],
+      "high_duplication": [],
+      "branch_issues": [
+        {
+          "project_name": "sample-repo-129",
+          "platform": "SonarCloud",
+          "main_branch": "main",
+          "non_main_branches": 3,
+          "inactive_branches_90": 3,
+          "repos_non_standard_main_branch": false,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "3 inactive branches (90+ days)"
+        }
+      ]
+    },
+    "qg_failed_projects": [],
+    "status": "Amber"
+  },
+  "Sample Group I": {
+    "group_name": "Sample Group I",
+    "platform_filter": "sonarcloud",
+    "total_projects": 12,
+    "total_projects_in_map": 12,
+    "matched": 12,
+    "unmatched": [],
+    "total_loc": 32144,
+    "quality_gate": {
+      "passed": 8,
+      "failed": 0,
+      "unknown": 4
+    },
+    "code_quality": {
+      "bugs": 19,
+      "vulnerabilities": 5,
+      "code_smells": 250,
+      "security_hotspots": 39,
+      "avg_coverage": 94.4,
+      "avg_duplication": 0.2,
+      "repos_below_90_cov_overall": 0,
+      "repos_below_90_cov_new": 0,
+      "repos_above_3_dup_overall": 0,
+      "repos_above_3_dup_new": 0
+    },
+    "severity_breakdown": {
+      "bugs": {
+        "blocker": 0,
+        "high": 11,
+        "medium": 8,
+        "low": 0,
+        "info": 0
+      },
+      "vulnerabilities": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 5,
+        "info": 0
+      },
+      "code_smells": {
+        "blocker": 1,
+        "high": 19,
+        "medium": 122,
+        "low": 102,
+        "info": 6
+      }
+    },
+    "governance": {
+      "inactive_projects": ["sample-repo-575", "sample-repo-445", "sample-repo-160"],
+      "inactive_branches": 1,
+      "false_positives": 0,
+      "false_positives_no_justification": 0,
+      "suppressions": 1,
+      "suppressions_no_justification": 1,
+      "missing_config": [
+        "sample-repo-271",
+        "sample-repo-555",
+        "sample-repo-160",
+        "sample-repo-218"
+      ],
+      "high_duplication": [],
+      "branch_issues": [
+        {
+          "project_name": "sample-repo-555",
+          "platform": "SonarCloud",
+          "main_branch": "main",
+          "non_main_branches": 1,
+          "inactive_branches_90": 1,
+          "repos_non_standard_main_branch": false,
+          "repos_with_inactive_non_main_branches": true,
+          "repos_with_non_main_branch_count_over_threshold": false,
+          "hygiene_issue": "1 inactive branches (90+ days)"
+        }
+      ]
+    },
+    "qg_failed_projects": [],
+    "status": "Red"
+  }
+}

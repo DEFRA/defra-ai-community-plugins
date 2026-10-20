@@ -9,6 +9,13 @@
   },
   "plugins": [
     {
+      "name": "code-quality",
+      "description": "Generate an automated Code Quality Report for the CCTS team covering Code Repository Maintenance and Code Assurance.",
+      "version": "0.1.0",
+      "source": "plugins/code-quality",
+      "category": "documentation"
+    },
+    {
       "name": "dotnet-upgrade",
       "description": "End-to-end .NET upgrade agent for multi-solution batched upgrades. Discovers components, plans, dry-runs, executes TFM + package upgrades, builds/tests, reverts failures to manual-review, and produces per-component commits with a consolidated batch report.",
       "version": "0.1.0",

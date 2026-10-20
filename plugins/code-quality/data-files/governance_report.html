@@ -1,0 +1,4048 @@
+<!doctype html>
+<html lang="en" style="zoom: 70%">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate" />
+    <title>Code Quality Report (SonarCloud)</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"
+      integrity="sha512-CQBWl4fJHWbryGE+Pc7UAxWMUMNMWzWxF4SQo9CgkJIN1kx6djDQZjh3Y8SZ1d+6I+1zze6Z7kHXO7q3UyZAWw=="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://assets.publishing.service.gov.uk/government-frontend/govuk-frontend-4.7.0.min.css"
+    />
+
+    <style>
+      :root {
+        --bg: #f4f6f8;
+        --surface: #ffffff;
+        --surface-soft: #f8fafc;
+        --border: #d8dde3;
+        --border-strong: #b1b4b6;
+        --text: #0b0c0c;
+        --muted: #505a5f;
+        --primary: #1d70b8;
+        --primary-dark: #003078;
+        --success: #00703c;
+        --success-dark: #005a30;
+        --warning: #f47738;
+        --warning-bg: #fff4e0;
+        --danger: #d4351c;
+        --danger-bg: #fcebea;
+        --shadow-sm: 0 1px 2px rgba(11, 12, 12, 0.06);
+        --shadow-md: 0 6px 20px rgba(11, 12, 12, 0.08);
+        --shadow-lg: 0 16px 40px rgba(11, 12, 12, 0.12);
+        --radius: 14px;
+        --radius-sm: 10px;
+
+        /* Shared width so header aligns exactly with the middle pane */
+        --page-width: 1800px;
+        --page-pad: 24px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: linear-gradient(180deg, #f7f9fb 0%, #f3f2f1 100%);
+        color: var(--text);
+        font-family:
+          'Segoe UI',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      /* =========================================
+   HEADER
+   ========================================= */
+      .defra-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: #00703c;
+        color: #fff;
+        border-bottom: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+        padding: 0;
+      }
+
+      .defra-header__inner {
+        max-width: var(--page-width);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 180px 1fr 320px;
+        align-items: center;
+        gap: 20px;
+        padding: 10px var(--page-pad);
+        min-height: 80px;
+      }
+
+      /* Left block */
+      .defra-header__brand-group {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        min-width: 0;
+      }
+
+      .defra-header__logo {
+        height: 70px;
+        width: auto;
+        display: block;
+        object-fit: contain;
+        flex: 0 0 auto;
+        filter: brightness(0) invert(1) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.25));
+      }
+
+      /* Middle title block */
+      .defra-header__title-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        min-width: 0;
+      }
+
+      .report-title,
+      .defra-header__service-name {
+        display: inline-block;
+        color: #fff;
+        font-family:
+          'Segoe UI',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        font-size: 27px;
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+        text-decoration: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+      }
+
+      .report-title:hover,
+      .defra-header__service-name:hover {
+        color: rgba(255, 255, 255, 0.85);
+        text-decoration: none;
+      }
+
+      /* Right search block */
+      .defra-header-search {
+        justify-self: end;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 100%;
+        max-width: 320px;
+        position: relative;
+      }
+
+      .defra-header .mode-panel {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        position: relative;
+        width: 100%;
+      }
+
+      #groupSearch {
+        width: 100%;
+        height: 40px;
+        padding: 8px 12px;
+        border: 2px solid #fff;
+        border-radius: 4px;
+        font-size: 16px;
+        font-family:
+          'Segoe UI',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        background: #fff;
+        color: #0b0c0c;
+        box-shadow: none;
+        transition: border-color 0.15s ease;
+      }
+
+      #groupSearch::placeholder {
+        color: #6f777b;
+      }
+
+      #groupSearch:focus {
+        outline: 3px solid #ffdd00;
+        outline-offset: 0;
+        border-color: #0b0c0c;
+        background: #fff;
+        box-shadow: none;
+        color: #0b0c0c;
+      }
+
+      /* Suggestions */
+      #groupSuggestions,
+      #suggestions {
+        position: absolute;
+        top: calc(100% + 4px);
+        left: 0;
+        width: 100%;
+        background: #fff;
+        border: 2px solid #0b0c0c;
+        border-radius: 0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        overflow: hidden;
+      }
+
+      #groupSuggestions {
+        max-height: 360px;
+        overflow-y: auto;
+      }
+
+      #groupSuggestions div,
+      #suggestions div {
+        padding: 12px 16px;
+        cursor: pointer;
+        border-bottom: 1px solid #edf1f4;
+        font-size: 17px;
+        color: #0b0c0c;
+        transition: background 0.12s ease;
+      }
+
+      #groupSuggestions div:hover,
+      #suggestions div:hover {
+        background: #f5f8fb;
+      }
+
+      #groupSuggestions div:last-child,
+      #suggestions div:last-child {
+        border-bottom: none;
+      }
+
+      /* =========================================
+   MAIN LAYOUT
+   ========================================= */
+      .wrap {
+        max-width: var(--page-width);
+        margin: 0 auto;
+        padding: 0 var(--page-pad) 24px;
+      }
+
+      main {
+        margin-top: 24px;
+        padding: 28px;
+        background: var(--surface);
+        min-height: 60vh;
+        border: 1px solid #e7eaee;
+        border-radius: 24px;
+        box-shadow: var(--shadow-md);
+      }
+
+      /* =========================================
+   TYPOGRAPHY
+   ========================================= */
+      h1 {
+        font-size: 40px;
+        font-weight: 700;
+        margin: 0 0 10px;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+      }
+      h2 {
+        font-size: 32px;
+        font-weight: 700;
+        margin: 36px 0 14px;
+        line-height: 1.15;
+        letter-spacing: -0.01em;
+      }
+      h3 {
+        font-size: 26px;
+        font-weight: 700;
+        margin: 20px 0 12px;
+        line-height: 1.25;
+      }
+      h4 {
+        font-size: 22px;
+        font-weight: 700;
+        margin: 14px 0 8px;
+        color: var(--text);
+        line-height: 1.25;
+      }
+      .sub,
+      .gr-sub,
+      .gm-sub {
+        font-size: 18px;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      /* =========================================
+   CARDS / SUMMARY TILES
+   ========================================= */
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin: 0;
+      }
+      .col4 {
+        width: calc(25% - 12px);
+        padding: 0;
+      }
+      .card {
+        height: 100%;
+        color: var(--text);
+        padding: 18px 18px 14px;
+        margin-bottom: 0;
+        text-align: left;
+        border-radius: 18px;
+        border: 1px solid var(--border);
+        background: #fff;
+        box-shadow: var(--shadow-sm);
+        transition:
+          transform 0.15s ease,
+          box-shadow 0.15s ease;
+      }
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+      .card .l {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--muted);
+        margin-bottom: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .card .v {
+        display: block;
+        font-size: 28px;
+        font-weight: 700;
+        padding: 16px 18px;
+        margin-top: 0;
+        border-radius: 14px;
+        border: none;
+      }
+      .card.blue {
+        background: linear-gradient(180deg, #f8fbff 0%, #f2f8fd 100%);
+        border-color: #c9dff1;
+      }
+      .card.blue .v {
+        background: #dfeffc;
+        color: var(--primary-dark);
+      }
+      .card.green {
+        background: linear-gradient(180deg, #f7fcf8 0%, #f0f8f2 100%);
+        border-color: #cfe7d7;
+      }
+      .card.green .v {
+        background: #d8efdf;
+        color: var(--success-dark);
+      }
+      /* =========================================
+   DEFRA-STYLE FOOTER (ALIGNED WITH PANEL)
+   ========================================= */
+      /* =========================================
+   DEFRA-STYLE FOOTER (ALIGNED)
+   ========================================= */
+      .defra-footer {
+        background: #f3f2f1;
+        border-top: 8px solid #00703c;
+        margin-top: 40px;
+        padding: 18px 0 14px;
+        font-family:
+          'Segoe UI',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+      }
+
+      /* SAME alignment as header + middle panel */
+      .defra-footer__inner {
+        max-width: var(--page-width);
+        margin: 0 auto;
+        padding: 0 var(--page-pad);
+      }
+
+      .defra-footer__links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0;
+        font-size: 16px;
+        color: #0b0c0c;
+      }
+
+      /* Each item styled like DEFRA footer links */
+      .footer-item {
+        position: relative;
+        padding-right: 18px;
+        margin-right: 18px;
+        font-weight: 400; /* not bold (this was your issue) */
+      }
+
+      /* Separator (instead of spaces) */
+      .footer-item::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 6px;
+        height: 6px;
+        border-top: 2px solid #505a5f;
+        border-right: 2px solid #505a5f;
+        transform: translateY(-50%) rotate(45deg);
+      }
+
+      /* Remove separator from last item */
+      .footer-item:last-child {
+        margin-right: 0;
+        padding-right: 0;
+      }
+
+      .footer-item:last-child::after {
+        display: none;
+      }
+      .defra-footer__meta {
+        font-size: 14px;
+        color: #505a5f;
+        line-height: 1.4;
+      }
+      /* =========================================
+   ABOUT / INSET / RECOMMENDATION
+   ========================================= */
+      .inset {
+        padding: 22px 24px;
+        margin: 20px 0;
+        border-left: 6px solid var(--primary);
+        background: linear-gradient(180deg, #f6faff 0%, #f3f7fb 100%);
+        border-radius: 16px;
+        font-size: 21px !important;
+        box-shadow: var(--shadow-sm);
+      }
+      .inset h3,
+      .inset .sub {
+        font-size: 24px !important;
+        font-weight: 700 !important;
+        margin-top: 0 !important;
+        margin-bottom: 10px !important;
+      }
+
+      .project-details,
+      .decluttered-details,
+      .details-row,
+      .details-col,
+      .metrics-row,
+      .metric {
+        font-size: 21px !important;
+        color: #000 !important;
+        font-family:
+          'Segoe UI',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif !important;
+      }
+
+      /* =========================================
+   GROUP MODAL (COMPATIBILITY)
+   ========================================= */
+      #groupModal {
+        display: none;
+      }
+
+      .gm-wrap {
+        max-width: 2000px;
+        width: 96%;
+        max-height: 95vh;
+        overflow-y: auto;
+        position: absolute;
+        left: 50%;
+        top: 4vh;
+        transform: translateX(-50%);
+        font-family:
+          'Segoe UI',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+      }
+
+      .gm-card {
+        background: #fff;
+        border: 1px solid #0b0c0c;
+        border-radius: 0;
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+      }
+
+      .gm-close {
+        position: absolute;
+        top: 12px;
+        right: 16px;
+        background: #fff;
+        border: 1px solid var(--border-strong);
+        border-radius: 12px;
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+        line-height: 36px;
+        text-align: center;
+        cursor: pointer;
+        color: #0b0c0c;
+        font-weight: 700;
+      }
+      .gm-close:hover {
+        color: #fff;
+        background: #0b0c0c;
+      }
+
+      .gm-header {
+        padding: 16px;
+        border-bottom: 0.5px solid #d4d4d0;
+      }
+      .gm-title {
+        font-size: 28px;
+        font-weight: 700;
+        margin: 0 0 6px;
+      }
+      .gm-sub {
+        font-size: 18px;
+        color: #505a5f;
+      }
+      .gm-body {
+        padding: 14px 16px;
+      }
+
+      .gm-body table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .gm-body th,
+      .gm-body td {
+        padding: 10px 12px 10px 0;
+        border-bottom: 1px solid #b1b4b6;
+        font-size: 18px;
+      }
+      .gm-body tbody tr:hover {
+        background: #f3f2f1;
+        cursor: pointer;
+      }
+
+      .gm-pager {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .gm-btn {
+        border: none;
+        background: #00703c;
+        color: #fff;
+        padding: 8px 16px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        border-radius: 12px;
+      }
+      .gm-btn:hover {
+        background: #005a30;
+      }
+      .gm-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background: #b1b4b6;
+        border-color: #b1b4b6;
+      }
+      .gm-page {
+        font-size: 16px;
+        color: #0b0c0c;
+        font-weight: 700;
+      }
+      .gm-note {
+        margin-top: 10px;
+        color: #505a5f;
+        font-size: 15px;
+      }
+
+      /* =========================================
+   ENHANCED GROUP MODAL PROJECT CARDS
+   ========================================= */
+      .gm-project-card {
+        background: #fff;
+        border: 1px solid #e5e8ec;
+        border-radius: 16px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        font-family:
+          'Segoe UI',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif !important;
+        font-size: 19px !important;
+        color: #0b0c0c !important;
+      }
+      .gm-project-card * {
+        font-family:
+          'Segoe UI',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif !important;
+        font-size: 19px !important;
+        color: #0b0c0c !important;
+      }
+      .gm-project-card:last-child {
+        margin-bottom: 0;
+      }
+
+      .gm-project-header {
+        padding: 14px 18px;
+        border-bottom: 1px solid #edf1f4;
+        background: #f8fafc;
+      }
+      .gm-project-name {
+        font-size: 22px;
+        font-weight: 700;
+        color: #0b0c0c;
+        margin: 0 0 8px;
+      }
+      .gm-project-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 18px;
+        font-size: 16px;
+        color: #0b0c0c;
+      }
+      .gm-project-meta .lb {
+        font-weight: 600;
+        color: #505a5f;
+      }
+
+      .gm-section-bar {
+        padding: 7px 18px;
+        background: #eef2f6;
+        border-top: 1px solid #dfe4e8;
+        border-bottom: 1px solid #dfe4e8;
+        font-size: 16px;
+        font-weight: 700;
+        color: #0b0c0c;
+      }
+
+      .gm-summary-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        padding: 12px 18px;
+      }
+      .gm-summary-item {
+        background: #f8fafc;
+        border-radius: 12px;
+        padding: 12px 14px;
+        border: 1px solid #e5e8ec;
+      }
+      .gm-summary-item .bl {
+        font-size: 14px;
+        font-weight: 600;
+        color: #505a5f;
+        display: block;
+        margin-bottom: 6px;
+      }
+      .gm-summary-item .val {
+        font-size: 20px;
+        font-weight: 700;
+        color: #0b0c0c;
+      }
+
+      /* Compact stats row */
+      .gm-stats-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 10px 18px;
+      }
+      .gm-stat-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 15px;
+        font-weight: 600;
+        background: #f7f9fb;
+        border: 1px solid #dfe4e8;
+        color: #0b0c0c;
+      }
+      .gm-stat-chip .sc-label {
+        color: #505a5f;
+        font-weight: 500;
+      }
+      .gm-stat-chip .sc-val {
+        font-weight: 700;
+      }
+      .gm-stat-chip.bugs .sc-val {
+        color: #d4351c;
+      }
+      .gm-stat-chip.vulns .sc-val {
+        color: #534ab7;
+      }
+      .gm-stat-chip.smells .sc-val {
+        color: #f47738;
+      }
+      .gm-stat-chip.hotspots .sc-val {
+        color: #d4351c;
+      }
+      .gm-stat-chip.coverage .sc-val {
+        color: #00703c;
+      }
+      .gm-stat-chip.duplication .sc-val {
+        color: #f47738;
+      }
+
+      /* Aging tags */
+      .gm-aging-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 8px 18px 10px;
+      }
+      .gm-aging-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 600;
+        background: #f3f7fb;
+        border: 1px solid #1d70b8;
+        color: #0b0c0c;
+      }
+      .gm-aging-tag .at-band {
+        color: #505a5f;
+        font-weight: 500;
+      }
+      .gm-aging-tag .at-val {
+        font-weight: 700;
+        color: #1d70b8;
+      }
+
+      /* Simplified group project card */
+      .gm-simple-card {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 18px 20px;
+        background: #fff;
+        border: 1px solid #e5e8ec;
+        border-left: 6px solid #1d70b8;
+        border-radius: 16px;
+        font-family:
+          'Segoe UI',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        font-size: 20px;
+        color: #0b0c0c;
+        box-shadow: var(--shadow-sm);
+        transition:
+          transform 0.12s ease,
+          box-shadow 0.12s ease;
+        flex-wrap: wrap;
+      }
+      .gm-simple-card:hover {
+        background: #fbfdff;
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+      }
+      .gm-simple-link {
+        color: #1d70b8;
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        font-size: 22px;
+        font-weight: 700;
+        font-family:
+          'Segoe UI',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        min-width: 260px;
+        flex: 1 1 auto;
+      }
+      .gm-simple-link:hover {
+        color: #003078;
+        text-decoration-thickness: 3px;
+      }
+      .gm-simple-field {
+        font-size: 18px;
+        color: #0b0c0c;
+        white-space: nowrap;
+      }
+      .gm-simple-lbl {
+        font-weight: 700;
+        color: #505a5f;
+      }
+
+      /* Tag */
+      .tag {
+        display: inline-block;
+        padding: 5px 10px;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #fff;
+        background: #1d70b8;
+        margin-right: 8px;
+        border-radius: 999px;
+      }
+
+      /* =========================================
+   TABLES
+   ========================================= */
+      table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin-bottom: 24px;
+        font-size: 18px;
+        background: #fff;
+        border: 1px solid #e5e8ec;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+      }
+      thead {
+        background: #f7f9fb;
+      }
+      th {
+        font-weight: 700;
+        text-align: left;
+        padding: 14px 18px;
+        color: #505a5f;
+        border-bottom: 1px solid #e2e7eb;
+        font-size: 15px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      tr {
+        border-bottom: 1px solid #edf1f4;
+      }
+      td {
+        padding: 14px 18px;
+        vertical-align: top;
+        font-size: 17px;
+        color: #0b0c0c;
+      }
+      tbody tr:hover {
+        background: #f8fbfd;
+      }
+
+      /* =========================================
+   WARN / OK PANELS
+   ========================================= */
+      .warn {
+        padding: 16px 20px 16px 68px;
+        position: relative;
+        font-weight: 700;
+        margin-bottom: 20px;
+        background: #fff4e0;
+        border-left: 6px solid #f47738;
+        color: #594300;
+        border-radius: 14px;
+        box-shadow: var(--shadow-sm);
+      }
+      .warn::before {
+        content: '!';
+        position: absolute;
+        left: 20px;
+        top: 10px;
+        font-size: 34px;
+        font-weight: 700;
+        color: #f47738;
+      }
+
+      .ok {
+        margin-bottom: 30px;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid #d6e8dd;
+        box-shadow: var(--shadow-sm);
+      }
+      .ok .oh {
+        padding: 14px 18px;
+        background: #00703c;
+        color: #fff;
+        font-weight: 700;
+        font-size: 18px;
+        border-radius: 0;
+      }
+      .ok .ob {
+        padding: 20px;
+        background: #f6fbf7;
+        font-size: 22px;
+        font-weight: 700;
+        color: #00703c;
+      }
+
+      /* Search box panel */
+      .search-panel {
+        background: #f8fafc;
+        border: 1px solid var(--border);
+        padding: 18px 20px;
+        margin-bottom: 30px;
+        border-radius: 16px;
+      }
+      .search-panel input {
+        font-size: 18px;
+        padding: 12px 14px;
+        width: 100%;
+        max-width: 820px;
+        border: 1px solid var(--border-strong);
+        border-radius: 12px;
+      }
+      .search-panel input:focus {
+        outline: 3px solid #ffdd00;
+        outline-offset: 0;
+        border-color: #1d70b8;
+      }
+
+      /* =========================================
+   TOOLTIPS
+   ========================================= */
+      .tooltip {
+        position: relative;
+        display: inline-block;
+        cursor: help;
+      }
+      .tooltip .tt {
+        visibility: hidden;
+        width: 360px;
+        background: #111827;
+        color: #fff;
+        text-align: left;
+        border: none;
+        padding: 14px 16px;
+        position: absolute;
+        z-index: 1000;
+        bottom: 32px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 15px;
+        line-height: 1.45;
+        border-radius: 12px;
+        box-shadow: var(--shadow-lg);
+      }
+      .tooltip:hover .tt {
+        visibility: visible;
+      }
+
+      /* =========================================
+   AI SECTIONS
+   ========================================= */
+      .ai-rec {
+        padding: 22px 24px;
+        margin: 16px 0 24px;
+        border-left: 6px solid #1d70b8;
+        background: linear-gradient(180deg, #f7fbff 0%, #eef5fc 100%);
+        position: relative;
+        font-size: 22px;
+        line-height: 1.6;
+        color: #0b0c0c;
+        border-radius: 16px;
+        box-shadow: var(--shadow-sm);
+        font-family:
+          'Segoe UI',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+      }
+      .ai-rec h3 {
+        font-size: 24px;
+        font-family:
+          'Segoe UI',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 14px;
+        color: #1d70b8;
+      }
+
+      .ai-toggle-wrap {
+        margin: 16px 0 26px;
+        border-left: 6px solid #1d70b8;
+        background: linear-gradient(180deg, #f7fbff 0%, #eef5fc 100%);
+        border-radius: 18px;
+        box-shadow: var(--shadow-sm);
+        font-family:
+          'Segoe UI',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        position: relative;
+        overflow: hidden;
+      }
+      .ai-toggle-wrap::before {
+        content: 'AI';
+        position: absolute;
+        left: 18px;
+        top: 18px;
+        background: #1d70b8;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 5px 8px;
+        border-radius: 999px;
+        letter-spacing: 0.05em;
+      }
+      .ai-toggle-btn {
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding: 22px 24px 22px 64px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 24px;
+        font-weight: 700;
+        color: #1d70b8;
+        font-family:
+          'Segoe UI',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        transition: background 0.12s ease;
+      }
+      .ai-toggle-btn:hover {
+        background: rgba(29, 112, 184, 0.04);
+      }
+      .ai-toggle-body {
+        display: none;
+        padding: 0 24px 22px 64px;
+        font-size: 22px;
+        line-height: 1.6;
+        color: #0b0c0c;
+      }
+      .ai-toggle-wrap.expanded .ai-toggle-body {
+        display: block;
+      }
+      .ai-toggle-body h3 {
+        font-size: 23px;
+        font-weight: 700;
+        margin: 16px 0 8px;
+      }
+      .ai-toggle-body p {
+        margin-left: 18px;
+      }
+      .ai-toggle-body ul {
+        margin: 4px 0 10px 34px;
+        padding: 0;
+      }
+      .ai-toggle-body li {
+        margin-bottom: 6px;
+        font-size: 21px;
+      }
+      .ai-toggle-body .sub-item {
+        margin-left: 34px;
+        font-size: 20px;
+      }
+
+      .toggle-btn {
+        cursor: pointer;
+        background: #00703c;
+        color: #fff;
+        border: none;
+        padding: 11px 18px;
+        position: relative;
+        font-size: 15px;
+        font-weight: 700;
+        margin-top: 10px;
+        border-radius: 12px;
+        box-shadow: var(--shadow-sm);
+        transition:
+          transform 0.12s ease,
+          background 0.12s ease,
+          box-shadow 0.12s ease;
+      }
+      .toggle-btn:hover {
+        background: #005a30;
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+      }
+      .toggle-btn .arrow {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 12px;
+        transition: transform 0.15s;
+      }
+
+      /* =========================================
+   BREADCRUMB
+   ========================================= */
+      .govuk-breadcrumbs {
+        padding: 8px 0 20px;
+        font-size: 16px;
+        border-bottom: none;
+        margin-bottom: 10px;
+      }
+      .govuk-breadcrumbs__list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 0;
+        flex-wrap: wrap;
+      }
+      .govuk-breadcrumbs__list-item {
+        display: flex;
+        align-items: center;
+        color: #505a5f;
+      }
+      .govuk-breadcrumbs__list-item::before {
+        content: '';
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        border-right: 2px solid #505a5f;
+        border-top: 2px solid #505a5f;
+        transform: rotate(45deg);
+        margin: 0 10px;
+      }
+      .govuk-breadcrumbs__list-item:first-child::before {
+        display: none;
+      }
+      .govuk-breadcrumbs__link {
+        color: #1d70b8;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 16px;
+        background: none;
+        border: none;
+        padding: 0;
+        font-family: inherit;
+      }
+      .govuk-breadcrumbs__link:hover {
+        color: #003078;
+        text-decoration-thickness: 3px;
+      }
+
+      /* =========================================
+   GROUP RESULTS PAGE
+   ========================================= */
+      #groupResultsPage {
+        display: none;
+        min-height: calc(100vh - 200px);
+      }
+      #groupResultsPage.visible {
+        display: block;
+      }
+
+      .gr-title {
+        font-size: 34px;
+        font-weight: 700;
+        margin: 0 0 6px;
+        color: #0b0c0c;
+      }
+      .gr-sub {
+        font-size: 18px;
+        color: #505a5f;
+        margin-bottom: 20px;
+      }
+
+      .gr-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 20px;
+      }
+      .gr-list li {
+        margin-bottom: 12px;
+      }
+      .gr-list li:last-child {
+        margin-bottom: 0;
+      }
+
+      /* Ensure project cards in group results use same font sizing */
+      #groupResultsPage,
+      #groupResultsPage .gm-project-card {
+        font-family:
+          'Segoe UI',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        font-size: 21px;
+        color: #0b0c0c;
+      }
+      #groupResultsPage .gm-project-card {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Clickable project name link */
+      .gm-project-link {
+        color: #1d70b8;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 22px;
+        font-weight: 700;
+        font-family:
+          'Segoe UI',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+      }
+      .gm-project-link:hover {
+        color: #003078;
+        text-decoration-thickness: 3px;
+      }
+
+      /* Grouped header row for project summary */
+      .grouped-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 32px;
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .grouped-header .header-col {
+        min-width: 180px;
+        flex: 0 0 auto;
+        font-size: 1em;
+      }
+      .grouped-header .project-name {
+        min-width: 220px;
+        flex: 1 1 0;
+        font-size: 1.1em;
+      }
+      .grouped-header .last-analysis {
+        min-width: 180px;
+        flex: 0 0 auto;
+        font-size: 1em;
+        color: #505a5f;
+      }
+
+      .gr-pager {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 22px;
+      }
+      .gr-pager-btn {
+        min-width: 80px;
+        padding: 11px 18px;
+        font-size: 15px;
+        font-weight: 700;
+        border: none;
+        background: #00703c;
+        color: #fff;
+        cursor: pointer;
+        font-family: inherit;
+        border-radius: 12px;
+        box-shadow: var(--shadow-sm);
+      }
+      .gr-pager-btn:hover {
+        background: #005a30;
+      }
+      .gr-pager-btn:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+        background: #b1b4b6;
+        border-color: #b1b4b6;
+      }
+      .gr-pager-info {
+        font-size: 16px;
+        font-weight: 700;
+        color: #0b0c0c;
+      }
+
+      /* hero adjustments so logo aligns to top of middle pane */
+      .defra-hero {
+        display: none;
+      }
+
+      /* =========================================
+   MODAL
+   ========================================= */
+      #projectModal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(11, 12, 12, 0.55);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+        font-size: 22px;
+        backdrop-filter: blur(3px);
+      }
+      #projectModal.visible {
+        display: flex;
+      }
+
+      /* Group modal */
+      /* Modal wrap sizes to content with no scroll */
+      .np-wrap {
+        max-width: 2000px;
+        width: 96%;
+        position: absolute;
+        left: 50%;
+        top: 1vh;
+        transform: translateX(-50%);
+        font-family:
+          'Segoe UI',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+      }
+
+      .np-card {
+        background: #fff;
+        border: 1px solid #e5e8ec;
+        border-left: 6px solid #1d70b8;
+        border-radius: 16px;
+        overflow: visible;
+        box-shadow: var(--shadow-sm);
+        font-size: 19px;
+        color: #0b0c0c;
+        font-family:
+          'Segoe UI',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+      }
+
+      /* 2-column card grid for project detail modal */
+      .np-grid-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin: 10px 0;
+      }
+      .np-grid-card {
+        background: #fff;
+        border: 1px solid #e5e8ec;
+        border-radius: 16px;
+        padding: 18px 20px;
+        box-shadow: var(--shadow-sm);
+      }
+      .np-grid-card h4 {
+        margin: 0 0 10px 0;
+        padding-left: 12px;
+        border-left: 4px solid #1d70b8;
+        font-size: 22px;
+        font-weight: 700;
+        color: #0b0c0c;
+      }
+      .np-grid-card p {
+        margin: 8px 0 8px 22px;
+        line-height: 1.6;
+        font-size: 20px;
+      }
+
+      /* Severity table */
+      .sev-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0 0 22px;
+        font-size: 18px;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+      }
+      .sev-table td {
+        padding: 6px 8px;
+        text-align: center;
+        font-weight: 700;
+        border: none;
+        font-size: 18px;
+      }
+      .sev-table td:first-child {
+        text-align: left;
+        padding-left: 0;
+        font-weight: 500;
+      }
+      .sev-table .sev-header {
+        font-size: 14px;
+        font-weight: 700;
+        color: #505a5f;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e4e7ea;
+      }
+
+      /* Severity chips */
+      .sev-chip {
+        display: inline-block;
+        min-width: 32px;
+        text-align: center;
+        padding: 4px 8px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 16px;
+      }
+      .sev-chip.s-red {
+        background: #fde2df;
+        color: #d4351c;
+        border: 1px solid #f1b7b0;
+      }
+      .sev-chip.s-amber {
+        background: #fff1df;
+        color: #b75b00;
+        border: 1px solid #f2cd97;
+      }
+      .sev-chip.s-grey {
+        color: #505a5f;
+        background: #f3f4f6;
+        border: 1px solid #d7dbe0;
+      }
+
+      .np-close {
+        position: absolute;
+        top: 4px;
+        right: 8px;
+        background: #fff;
+        border: 1px solid var(--border-strong);
+        border-radius: 10px;
+        width: 34px;
+        height: 34px;
+        font-size: 20px;
+        line-height: 32px;
+        text-align: center;
+        cursor: pointer;
+        color: #0b0c0c;
+        font-weight: 700;
+        z-index: 10;
+        box-shadow: var(--shadow-sm);
+      }
+      .np-close:hover {
+        color: #fff;
+        background: #0b0c0c;
+      }
+
+      .np-header {
+        padding: 6px 22px 6px 16px;
+        border-bottom: none;
+        cursor: move;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        background: #f8fafc;
+        border-radius: 16px 16px 0 0;
+        min-height: 0;
+      }
+      .np-name {
+        font-size: 28px;
+        font-weight: 700;
+        margin: 0;
+        color: #0b0c0c;
+        flex: 1 1 auto;
+      }
+      .np-hdr-qg {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+        font-size: 17px;
+        font-weight: 600;
+        color: #505a5f;
+      }
+      .np-hdr-qg .qg-name {
+        padding: 8px 14px;
+        background: #f6f8fa;
+        border: 1px solid #e5e8ec;
+        border-radius: 12px;
+        color: #0b0c0c;
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .np-hdr-qg .qg-pill {
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .np-hdr-qg .qg-pill.pass {
+        background: #dff1e4;
+        color: #005a30;
+      }
+      .np-hdr-qg .qg-pill.fail {
+        background: #fde2df;
+        color: #8f1d13;
+      }
+      .np-hdr-qg .qg-pill.unknown {
+        background: #f3f4f6;
+        color: #505a5f;
+        border: 1px solid #e5e8ec;
+      }
+
+      /* card body fills remaining flex space; vh values ÷0.6 to compensate for zoom:60% on html */
+      .np-card-body {
+        overflow: visible;
+      }
+
+      .np-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        font-size: 19px;
+        font-weight: 600;
+        color: #0b0c0c;
+      }
+
+      .np-meta .lb {
+        font-size: 16px !important;
+        font-weight: 600 !important;
+        color: #505a5f !important;
+      }
+
+      .np-sbar {
+        padding: 10px 18px;
+        background: #f7fbff;
+        border-top: 1px solid #e5e8ec;
+        border-bottom: 1px solid #e5e8ec;
+        font-size: 19px;
+        font-weight: 700;
+        color: #0b0c0c;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .np-chart-area {
+        padding: 16px 18px;
+      }
+
+      .np-legend {
+        display: flex;
+        gap: 14px;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+      }
+      .np-legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 18px;
+        color: #0b0c0c;
+      }
+      .np-legend-dot {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+
+      .np-chart-wrap {
+        position: relative;
+        height: 290px;
+        background: #fff;
+        border: 1px solid #edf1f4;
+        border-radius: 16px;
+        padding: 10px;
+      }
+      .np-isec {
+        padding: 14px 16px;
+      }
+
+      /* Modal metric grid */
+      .np-mg {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .np-mi {
+        background: #f8fafc;
+        border-radius: 14px;
+        padding: 14px 16px;
+        font-size: 16px;
+        color: #0b0c0c;
+        border: 1px solid #e5e8ec;
+      }
+
+      /* Severity row layout */
+      .sev-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2px 0;
+      }
+      .sev-label {
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-family:
+          'Segoe UI',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        color: #222;
+      }
+      .sev-value {
+        flex: 0 0 60px;
+        margin-left: 8px;
+        text-align: right;
+        font-family:
+          'Segoe UI',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+      }
+
+      /* Metric labels */
+      .np-ml {
+        font-size: 13px;
+        color: #44515c;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 6px;
+      }
+      .np-ml.nc {
+        color: #185fa5;
+      }
+
+      .np-mv {
+        font-size: 19px;
+        font-weight: 700;
+        color: #0b0c0c;
+      }
+
+      .np-rt {
+        display: inline-flex;
+        padding: 5px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        margin-top: 8px;
+        background: #f3f4f6;
+      }
+
+      .np-qg {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        margin-left: 8px;
+        font-weight: 700;
+      }
+      .np-qg.pass {
+        background: #dff1e4;
+        color: #005a30;
+      }
+      .np-qg.fail {
+        background: #fde2df;
+        color: #8f1d13;
+      }
+      .np-qg.unknown {
+        background: #f3f4f6;
+        color: #505a5f;
+        border: 1px solid #e5e8ec;
+      }
+
+      .np-bgrid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        padding: 14px 16px;
+      }
+      .np-bi {
+        background: #f8fafc;
+        border-radius: 14px;
+        padding: 14px;
+        font-size: 16px;
+        font-weight: 700;
+        color: #0b0c0c;
+        border: 1px solid #e5e8ec;
+      }
+
+      .np-bi .bl {
+        font-size: 18px;
+        font-weight: 600;
+        color: #222;
+        margin-bottom: 8px;
+        display: block;
+      }
+
+      .np-msec {
+        padding: 12px 16px;
+      }
+
+      /* Search mode buttons */
+      .search-mode {
+        display: inline-flex;
+        border: 1px solid #d9dde2;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 10px 0 15px;
+        background: #fff;
+      }
+      .mode-btn {
+        padding: 10px 20px;
+        border: 0;
+        background: #fff;
+        color: #0b0c0c;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        border-right: 1px solid #d9dde2;
+      }
+      .mode-btn:last-child {
+        border-right: 0;
+      }
+      .mode-btn:hover {
+        background: #f3f2f1;
+      }
+      .mode-btn.is-active {
+        background: #1d70b8;
+        color: #fff;
+      }
+      .mode-panel input[type='search'] {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid var(--border-strong);
+        border-radius: 12px;
+        outline: none;
+      }
+      .mode-panel input[type='search']:focus {
+        outline: 3px solid #ffdd00;
+        outline-offset: 0;
+        border-color: #1d70b8;
+      }
+
+      /* =========================================
+   GROUP MODAL (NEW) / DECLUTTERED CARDS
+   ========================================= */
+      .gm-project-card.decluttered {
+        font-family:
+          'Segoe UI',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        font-size: 16px;
+        color: #0b0c0c;
+        background: #fff;
+        border: 1px solid #e5e8ec;
+        border-left: 6px solid #1d70b8;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        margin-bottom: 24px;
+        width: 100%;
+      }
+
+      .gm-pc-title-bar {
+        background: #f7f9fb;
+        padding: 12px 18px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px 16px;
+        border-bottom: 1px solid #e5e8ec;
+      }
+      .gm-pc-title-bar a.gm-project-link {
+        font-size: 24px;
+        font-weight: 700;
+        color: #1d70b8;
+        text-decoration: underline;
+        cursor: pointer;
+        letter-spacing: 0;
+      }
+      .gm-pc-title-bar a.gm-project-link:hover {
+        color: #003078;
+        text-decoration-thickness: 3px;
+      }
+      .gm-pc-badge {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 700;
+        color: #062a45;
+        background: #dfeffc;
+        border: 1px solid #b9d5ef;
+        border-radius: 999px;
+        padding: 2px 8px;
+        letter-spacing: 0.02em;
+      }
+      .gm-pc-badge.plat-cloud {
+        color: #05331f;
+        background: #d8efdf;
+        border-color: #9fd0b4;
+      }
+
+      .gm-pc-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 24px;
+        padding: 7px 18px;
+        background: #fff;
+        border-bottom: 1px solid #e5e8ec;
+        font-size: 16px;
+        color: #505a5f;
+      }
+      .gm-pc-meta .lb {
+        font-weight: 700;
+        color: #0b0c0c;
+      }
+
+      .gm-pc-row {
+        display: flex;
+        align-items: stretch;
+        border-top: 1px solid #e5e8ec;
+      }
+      .gm-pc-row-lbl {
+        flex: 0 0 130px;
+        width: 130px;
+        min-width: 130px;
+        max-width: 130px;
+        padding: 10px 14px;
+        background: #f7f9fb;
+        border-right: 1px solid #e5e8ec;
+        font-size: 13px;
+        font-weight: 700;
+        color: #505a5f;
+        display: flex;
+        align-items: center;
+        line-height: 1.3;
+      }
+      .gm-pc-row-body {
+        flex: 1 1 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 0;
+      }
+      .gm-pc-metric {
+        flex: 1 1 0;
+        padding: 10px 14px;
+        border-right: 1px solid #e5e8ec;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        background: #fff;
+      }
+      .gm-pc-metric:last-child {
+        border-right: none;
+      }
+      .gm-pc-metric .m-lbl {
+        font-size: 14px;
+        font-weight: 600;
+        color: #505a5f;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .gm-pc-metric .m-val {
+        font-size: 20px;
+        font-weight: 700;
+        color: #0b0c0c;
+        line-height: 1.1;
+      }
+      .gm-pc-metric .m-val.warn-val {
+        color: #d4351c;
+      }
+
+      .gm-pc-aging-chips {
+        flex: 1 1 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 10px 14px;
+        align-items: flex-start;
+        align-content: flex-start;
+        background: #fff;
+      }
+      .gm-pc-aging-chip {
+        display: inline-flex;
+        flex-direction: column;
+        background: #f3f7fb;
+        border: 1px solid #1d70b8;
+        border-radius: 12px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.5;
+        gap: 2px;
+      }
+      .gm-pc-aging-chip .ac-period {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #505a5f;
+        margin-bottom: 2px;
+      }
+      .gm-pc-aging-chip .ac-bugs {
+        color: #d4351c;
+        font-weight: 700;
+      }
+      .gm-pc-aging-chip .ac-smells {
+        color: #c17700;
+        font-weight: 700;
+      }
+      .gm-pc-aging-chip .ac-vulns {
+        color: #1d70b8;
+        font-weight: 700;
+      }
+
+      .gm-pc-qgfail {
+        padding: 10px 18px;
+        border-top: 1px solid #e5e8ec;
+        background: #fdf6d8;
+        font-size: 16px;
+        color: #594300;
+        font-weight: 700;
+      }
+      .gm-pc-qgfail strong {
+        font-weight: 700;
+      }
+
+      .phase {
+        display: none;
+      }
+
+      /* =========================================
+   RESPONSIVE
+   ========================================= */
+      @media (max-width: 1280px) {
+        .col4 {
+          width: calc(50% - 8px);
+        }
+
+        .defra-header__inner {
+          grid-template-columns: 160px 1fr 260px;
+          padding: 10px var(--page-pad);
+        }
+
+        .defra-header__logo {
+          height: 44px;
+        }
+
+        .report-title,
+        .defra-header__service-name {
+          font-size: 23px;
+        }
+
+        .defra-header-search {
+          max-width: 260px;
+        }
+      }
+
+      @media (max-width: 900px) {
+        body {
+          font-size: 17px;
+        }
+        main {
+          padding: 20px;
+        }
+        h1 {
+          font-size: 36px;
+        }
+        h2 {
+          font-size: 28px;
+        }
+        .defra-header__inner {
+          grid-template-columns: 1fr;
+          gap: 10px;
+          text-align: center;
+          min-height: auto;
+          padding: 10px var(--page-pad);
+        }
+
+        .defra-header__brand-group {
+          justify-content: center;
+        }
+
+        .defra-header__title-wrap {
+          justify-content: center;
+        }
+
+        .defra-header-search {
+          justify-self: center;
+          max-width: 520px;
+          width: 100%;
+        }
+
+        .defra-header__logo {
+          height: 38px;
+        }
+
+        .report-title,
+        .defra-header__service-name {
+          font-size: 21px;
+          white-space: normal;
+        }
+
+        .np-grid-row {
+          grid-template-columns: 1fr;
+        }
+        .gm-simple-card {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .gm-simple-field {
+          white-space: normal;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .col4 {
+          width: 100%;
+        }
+
+        .wrap {
+          padding: 0 12px 18px;
+        }
+
+        main {
+          border-radius: 18px;
+          padding: 16px;
+        }
+
+        .defra-header__inner {
+          padding: 8px 12px;
+        }
+
+        .defra-header__logo {
+          height: 34px;
+        }
+
+        .report-title,
+        .defra-header__service-name {
+          font-size: 19px;
+        }
+
+        #groupSearch {
+          height: 36px;
+          font-size: 16px;
+        }
+
+        table {
+          display: block;
+          overflow-x: auto;
+          white-space: nowrap;
+        }
+
+        td {
+          font-size: 18px;
+        }
+
+        .ai-toggle-btn,
+        .ai-toggle-body,
+        .ai-rec,
+        .inset {
+          font-size: 20px !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="defra-header" role="banner">
+      <div class="defra-header__inner">
+        <div class="defra-header__brand-group">
+          <img
+            src="https://digital.defra.gov.uk/public/images/defra-logo.svg"
+            alt=""
+            role="presentation"
+            class="defra-header__logo"
+          />
+        </div>
+
+        <div class="defra-header__title-wrap" style="flex-direction: column; gap: 4px">
+          <a href="#" id="headerHomeLink" class="report-title">
+            Code Quality Report (SonarCloud)
+          </a>
+        </div>
+
+        <div class="defra-header-search">
+          <div id="panel-group" class="mode-panel">
+            <input
+              id="groupSearch"
+              type="search"
+              autocomplete="off"
+              placeholder="Search for project..."
+              title="Search for project groups to view detailed metrics"
+              aria-label="Search for project groups to view detailed metrics"
+            />
+            <div id="groupSuggestions"></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="wrap">
+      <main>
+        <!-- HOME VIEW -->
+        <div id="homeView">
+          <nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+            <ol class="govuk-breadcrumbs__list">
+              <li class="govuk-breadcrumbs__list-item" aria-current="page">SonarCloud Home</li>
+            </ol>
+          </nav>
+
+          <!-- Visible search moved into header. Keep hidden single-project search for modal functionality. -->
+          <!-- Hidden single-project search (kept for projectModal to work) -->
+          <div id="panel-project" style="display: none">
+            <input
+              id="projectSearch"
+              type="search"
+              autocomplete="off"
+              aria-label="Search for a project"
+            />
+            <div id="suggestions"></div>
+          </div>
+
+          <div id="exec"></div>
+          <div id="issueChart" style="margin-top: 30px"></div>
+          <div id="aiNarrative"></div>
+          <div id="s1"></div>
+          <div id="s2"></div>
+          <div id="s3"></div>
+          <div id="s4"></div>
+          <div id="s5"></div>
+          <div id="s6"></div>
+          <div id="s7"></div>
+          <div id="s8"></div>
+          <div id="s9"></div>
+          <div id="s10"></div>
+          <div id="s11"></div>
+        </div>
+        <!-- /homeView -->
+
+        <!-- GROUP RESULTS VIEW: shown in-page when a group is selected -->
+        <div id="groupResultsPage">
+          <nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+            <ol class="govuk-breadcrumbs__list">
+              <li class="govuk-breadcrumbs__list-item">
+                <button class="govuk-breadcrumbs__link" id="breadcrumbHome">SonarCloud Home</button>
+              </li>
+              <li class="govuk-breadcrumbs__list-item" aria-current="page" id="breadcrumbGroup">
+                Group results
+              </li>
+            </ol>
+          </nav>
+          <h1 class="gr-title" id="grTitle" aria-live="polite">Group details</h1>
+          <p class="gr-sub" id="grSub"></p>
+
+          <div id="groupAiSummary"></div>
+          <ul class="gr-list" id="grList"></ul>
+          <div class="gr-pager">
+            <button type="button" class="gr-pager-btn" id="grPrev">&laquo; Previous</button>
+            <span class="gr-pager-info" id="grPageInfo"></span>
+            <button type="button" class="gr-pager-btn" id="grNext">Next &raquo;</button>
+          </div>
+        </div>
+        <!-- /groupResultsPage -->
+      </main>
+    </div>
+    <footer class="defra-footer" role="contentinfo">
+      <div class="defra-footer__inner">
+        <div class="defra-footer__links">
+          <span class="footer-item">Privacy</span>
+          <span class="footer-item">Cookies</span>
+          <span class="footer-item">Accessibility statement</span>
+        </div>
+
+        <div class="defra-footer__meta">
+          Maintained by Cross Cutting Technical Services - Quality Assurance & Test.
+        </div>
+      </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="projectModal">
+      <div class="np-wrap">
+        <button class="np-close" id="closeModal">&times;</button>
+        <div class="np-card">
+          <div class="np-header" title="Drag to move"></div>
+          <div class="np-card-body">
+            <div class="np-sbar">
+              <div
+                id="pcName"
+                class="np-name"
+                style="font-size: 21px; font-weight: 700; flex: 1 1 auto; margin: 0; color: #0b0c0c"
+              ></div>
+              <div class="np-hdr-qg">
+                <span id="pcQgName" class="qg-name"></span
+                ><span id="pcQgPill" class="qg-pill"></span>
+              </div>
+            </div>
+            <div class="np-chart-area">
+              <div
+                style="
+                  font-size: 13px;
+                  font-weight: 700;
+                  color: #1d70b8;
+                  margin-bottom: 4px;
+                  text-align: center;
+                  letter-spacing: 0.01em;
+                "
+              >
+                Issue Aging Distribution — Overall Code: Open Issues Across Years
+              </div>
+              <div class="np-legend" id="pcLegend"></div>
+              <div class="np-chart-wrap"><canvas id="pcAgingCanvas"></canvas></div>
+            </div>
+            <div
+              id="pcStructured"
+              style="
+                padding: 16px 18px;
+                font-family:
+                  'Segoe UI',
+                  -apple-system,
+                  BlinkMacSystemFont,
+                  sans-serif;
+                font-size: 19px;
+                color: #0b0c0c;
+                line-height: 1.55;
+              "
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      ;(function () {
+        var DATA, AGING
+        var GROUP_MAP = {}
+        Promise.all([
+          fetch('sonar_repo_metrics.json', { cache: 'no-store' }).then((r) => r.json()),
+          fetch('sonar_aging_merged.json', { cache: 'no-store' })
+            .then((r) => r.json())
+            .catch(() => []),
+          fetch('project_group_map.json', { cache: 'no-store' })
+            .then((r) => r.json())
+            .catch(() => ({}))
+        ]).then(function (res) {
+          DATA = res[0]
+          AGING = res[1]
+          GROUP_MAP = res[2] || {}
+          renderAll()
+          initSearch()
+          initGroupSearch()
+          initNavigation()
+        })
+
+        /* helpers */
+        function $(id) {
+          return document.getElementById(id)
+        }
+        function esc(s) {
+          return s == null
+            ? ''
+            : String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
+        }
+        function num(x) {
+          if (x == null) return 0
+          if (typeof x === 'number') return x
+          return Number.parseFloat(x) || 0
+        }
+        function fmt(x) {
+          return x == null ? '\u2014' : String(x)
+        }
+        function commas(n) {
+          return n == null ? '0' : Number(n).toLocaleString()
+        }
+
+        /* Return the recorded last analysis date or compute a fallback from days since last analysis */
+        function getLastAnalysis(r) {
+          try {
+            if (r == null) return ''
+            if (r.last_analysis_date != null && String(r.last_analysis_date).trim() !== '')
+              return String(r.last_analysis_date).slice(0, 10)
+            if (r['Last Scan Date'] != null && String(r['Last Scan Date']).trim() !== '')
+              return String(r['Last Scan Date']).slice(0, 10)
+            var d =
+              r.days_since_last_analysis != null
+                ? r.days_since_last_analysis
+                : r['Days Since Last Scan']
+            if (d == null || d === '') return ''
+            var days = Number(d)
+            if (Number.isNaN(days)) return ''
+            var dt = new Date()
+            dt.setDate(dt.getDate() - days)
+            return dt.toISOString().slice(0, 10)
+          } catch (e) {
+            console.warn('getLastAnalysis failed:', e)
+            return ''
+          }
+        }
+
+        function metricCard(label, value, colorClass) {
+          return (
+            '<div class="col4"><div class="card ' +
+            colorClass +
+            '"><div class="l">' +
+            esc(label) +
+            '</div><div class="v">' +
+            esc(String(value)) +
+            '</div></div></div>'
+          )
+        }
+
+        function renderTable(headers, rows, rowRenderer) {
+          if (!rows || !rows.length)
+            return '<div class="ok"><div class="oh">Success</div><div class="ob">No issues found</div></div>'
+          var html = '<table><thead><tr>'
+          headers.forEach(function (header) {
+            html += '<th>' + esc(header) + '</th>'
+          })
+          html += '</tr></thead><tbody>'
+          rows.forEach(function (row, i) {
+            html +=
+              '<tr' +
+              (i >= 3 ? ' style="display:none" data-extra' : '') +
+              '>' +
+              rowRenderer(row) +
+              '</tr>'
+          })
+          html += '</tbody></table>'
+          if (rows.length > 3)
+            html +=
+              '<button class="toggle-btn" onclick="toggleRows(this)"><span class="arrow">\u25B6</span><span>Show ' +
+              (rows.length - 3) +
+              ' more (' +
+              rows.length +
+              ' total)</span></button>'
+          return html
+        }
+        function cell(value) {
+          return '<td>' + esc(value == null ? '' : String(value)) + '</td>'
+        }
+
+        function aiInsightBlock(sectionKey) {
+          if (!DATA.ai_insights || !DATA.ai_insights.sections) return ''
+          var sections = DATA.ai_insights.sections
+          var insightText = sections[sectionKey + '_insights'] || ''
+          var actionText = sections[sectionKey + '_action'] || ''
+          if (!insightText && !actionText) return ''
+          var html = '<div class="ai-rec">'
+          if (insightText) html += '<strong>Insights:</strong> ' + esc(insightText)
+          if (actionText)
+            html += (insightText ? '<br>' : '') + '<strong>Action:</strong> ' + esc(actionText)
+          html += '</div>'
+          return html
+        }
+
+        function renderSection(
+          sectionNumber,
+          title,
+          tooltip,
+          headers,
+          rows,
+          rowRenderer,
+          aiSectionKey
+        ) {
+          var html =
+            '<h2>' +
+            sectionNumber +
+            '. ' +
+            esc(title) +
+            ' <span class="tooltip">\u2139\uFE0F<span class="tt">' +
+            tooltip +
+            '</span></span></h2>'
+          if (rows && rows.length) {
+            html += renderTable(headers, rows, rowRenderer)
+            html += aiInsightBlock(aiSectionKey)
+          } else {
+            html +=
+              '<div class="ok"><div class="oh">Success</div><div class="ob">No issues found in this category</div></div>'
+          }
+          return html
+        }
+
+        /* ---- RENDER ---- */
+        /* Resolve a platform-specific stat: use the platform's own value when present,
+   otherwise fall back to the page total (when that platform is the active filter)
+   or a portfolio-level fallback. */
+        function resolvePlatformStat(platformValue, isActivePlatform, activeTotal, fallback) {
+          if (platformValue != null) return platformValue
+          return isActivePlatform ? activeTotal : fallback || 0
+        }
+
+        function buildPlatformStatsBlock(heading, colorClass, labels, repos, loc, priv, pub) {
+          var html = '<h3>' + heading + '</h3><div class="row">'
+          html += metricCard(labels[0], commas(repos), colorClass)
+          html += metricCard(labels[1], commas(loc), colorClass)
+          html += metricCard(labels[2], commas(priv), colorClass)
+          html += metricCard(labels[3], commas(pub), colorClass)
+          html += '</div>'
+          return html
+        }
+
+        function buildSonarStatsHtml() {
+          var portfolio = DATA.portfolio || {}
+          var platformMetrics = DATA.platform_metrics || {},
+            sonarQube = platformMetrics.sonarqube || {},
+            sonarCloud = platformMetrics.sonarcloud || {}
+          var platformFilter = DATA.platform_filter /* "sonarqube", "sonarcloud", or null (all) */
+          var totalRepos = DATA.total_repos || 0,
+            totalLoc = DATA.total_loc || 0,
+            totalPrivateRepos = DATA.private_repos || 0,
+            totalPublicRepos = DATA.public_repos || 0
+          var statsHtml = '<h2>Sonar Stats</h2>'
+          var isSonarQube = platformFilter === 'sonarqube',
+            isSonarCloud = platformFilter === 'sonarcloud'
+
+          /* SonarQube cards — shown when platform is sonarqube, OR all-platforms AND SonarQube has data */
+          var sonarQubeRepoCount = sonarQube.total_repos || portfolio.sonarqube_count || 0
+          var sonarCloudRepoCount = sonarCloud.total_repos || portfolio.sonarcloud_count || 0
+          if (isSonarQube || (!isSonarCloud && sonarQubeRepoCount > 0)) {
+            var sqRepos = resolvePlatformStat(
+              sonarQube.total_repos,
+              isSonarQube,
+              totalRepos,
+              portfolio.sonarqube_count
+            )
+            var sqLoc = resolvePlatformStat(
+              sonarQube.total_loc,
+              isSonarQube,
+              totalLoc,
+              portfolio.sonarqube_loc
+            )
+            var sqPrivate = resolvePlatformStat(
+              sonarQube.private_repos,
+              isSonarQube,
+              totalPrivateRepos,
+              0
+            )
+            var sqPublic = resolvePlatformStat(
+              sonarQube.public_repos,
+              isSonarQube,
+              totalPublicRepos,
+              0
+            )
+            statsHtml += buildPlatformStatsBlock(
+              'SonarQube',
+              'blue',
+              ['Total Repos', 'Total LOC', 'Private Repos', 'Public Repos'],
+              sqRepos,
+              sqLoc,
+              sqPrivate,
+              sqPublic
+            )
+          }
+
+          /* SonarCloud cards — shown when platform is sonarcloud, OR all-platforms AND SonarCloud has data */
+          if (isSonarCloud || (!isSonarQube && sonarCloudRepoCount > 0)) {
+            var scRepos = resolvePlatformStat(
+              sonarCloud.total_repos,
+              isSonarCloud,
+              totalRepos,
+              portfolio.sonarcloud_count
+            )
+            var scLoc = resolvePlatformStat(
+              sonarCloud.total_loc,
+              isSonarCloud,
+              totalLoc,
+              portfolio.sonarcloud_loc
+            )
+            var scPrivate = resolvePlatformStat(
+              sonarCloud.private_repos,
+              isSonarCloud,
+              totalPrivateRepos,
+              0
+            )
+            var scPublic = resolvePlatformStat(
+              sonarCloud.public_repos,
+              isSonarCloud,
+              totalPublicRepos,
+              0
+            )
+            statsHtml += buildPlatformStatsBlock(
+              'SonarCloud',
+              'green',
+              ['Repos', 'LOC', 'Private', 'Public'],
+              scRepos,
+              scLoc,
+              scPrivate,
+              scPublic
+            )
+          }
+
+          return statsHtml
+        }
+
+        /* risk colour + label helpers for the cost-intelligence org cards */
+        function riskColorForCapacity(risk) {
+          risk = (risk || '').toLowerCase()
+          if (risk === 'high') return '#d4351c'
+          if (risk === 'medium') return '#f47738'
+          return '#00703c'
+        }
+        function capitalise(str) {
+          return str ? str.charAt(0).toUpperCase() + str.slice(1) : ''
+        }
+
+        function buildPublicLocSectionHtml(org, publicSharePct) {
+          if (org.public_loc <= 0) return ''
+          return (
+            '<div style="margin-bottom:14px">' +
+            '<div style="font-size:20px;color:#0b0c0c;margin-bottom:6px"><strong>' +
+            commas(org.public_loc) +
+            '</strong> public lines <span style="font-size:16px;color:#505a5f;font-weight:normal">(not billed)</span></div>' +
+            '<div style="background:#f3f2f1;border-radius:10px;height:14px;overflow:hidden;margin-bottom:4px" title="' +
+            commas(org.public_loc) +
+            ' public lines \u2014 not billed by SonarCloud">' +
+            '<div style="width:' +
+            publicSharePct +
+            '%;height:100%;background:#1d70b8"></div>' +
+            '</div>' +
+            '<div style="font-size:16px;color:#505a5f">' +
+            publicSharePct +
+            '% of total LOC \u00b7 not counted against licence</div>' +
+            '</div>'
+          )
+        }
+
+        function buildReclaimSectionHtml(org, reclaimDrivers) {
+          if (org.reclaimable_billable_loc <= 0) return ''
+          var projectCount = (org.inactive_projects || 0) + (org.high_duplication_projects || 0)
+          var projectSuffix = projectCount !== 1 ? 's' : ''
+          var driversHtml = reclaimDrivers.length
+            ? '<div style="font-size:17px;color:#505a5f;margin-top:4px">by cleaning up ' +
+              reclaimDrivers.join(' and ') +
+              ' project' +
+              projectSuffix +
+              '</div>'
+            : ''
+          return (
+            '<div style="border-top:1px solid #f3f2f1;padding-top:12px;font-size:20px;color:#0b0c0c">' +
+            '<span style="color:#00703c;font-weight:700">Potential LOC reduction (private repos):</span> up to ' +
+            commas(org.reclaimable_billable_loc) +
+            ' private lines' +
+            driversHtml +
+            '</div>'
+          )
+        }
+
+        function buildCoverageWarningSectionHtml(org) {
+          if (org.no_coverage_projects <= 0 || org.no_coverage_billable_loc <= 0) return ''
+          return (
+            '<div style="margin-top:12px;font-size:17px;color:#505a5f"><span style="color:#f47738;font-weight:700">Review:</span> ' +
+            commas(org.no_coverage_projects) +
+            ' project' +
+            (org.no_coverage_projects !== 1 ? 's' : '') +
+            ' (' +
+            commas(org.no_coverage_billable_loc) +
+            ' lines) have no test coverage \u2014 check test code is not being counted as source.</div>'
+          )
+        }
+
+        function buildOrgCardHtml(orgName, org) {
+          var utilisationPct = org.utilisation_pct || 0
+          var riskColorHex = riskColorForCapacity(org.capacity_risk)
+          var utilisationBarWidth = Math.max(0, Math.min(utilisationPct, 100))
+          var orgTotalLoc = (org.private_loc || 0) + (org.public_loc || 0)
+          var publicSharePct =
+            orgTotalLoc > 0 ? Math.round(((org.public_loc || 0) / orgTotalLoc) * 100) : 0
+          var reclaimDrivers = []
+          if (org.inactive_projects > 0) reclaimDrivers.push(org.inactive_projects + ' inactive')
+          if (org.high_duplication_projects > 0)
+            reclaimDrivers.push(org.high_duplication_projects + ' highly duplicated')
+          return (
+            '<div style="flex:1 1 360px;min-width:320px;border:1px solid #c9dff1;border-radius:18px;padding:20px 22px;background:linear-gradient(180deg,#f8fbff 0%,#f2f8fd 100%);box-shadow:0 1px 2px rgba(11,12,12,.06)">' +
+            '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:4px">' +
+            '<span style="font-size:24px;font-weight:700;color:#0b0c0c">' +
+            esc(orgName) +
+            '</span>' +
+            '<span style="font-size:16px;font-weight:700;color:#fff;background:' +
+            riskColorHex +
+            ';padding:3px 12px;border-radius:12px;white-space:nowrap">' +
+            capitalise(org.capacity_risk) +
+            ' risk</span>' +
+            '</div>' +
+            '<div style="font-size:17px;color:#505a5f;margin-bottom:14px">' +
+            esc(org.plan) +
+            (org.billing_frequency ? ' \u00b7 ' + esc(org.billing_frequency) + ' billing' : '') +
+            '</div>' +
+            '<div style="font-size:20px;color:#0b0c0c;margin-bottom:6px"><strong>' +
+            commas(org.billed_loc) +
+            '</strong> of <strong>' +
+            commas(org.loc_capacity) +
+            '</strong> private lines used</div>' +
+            '<div style="background:#f3f2f1;border-radius:10px;height:18px;overflow:hidden;margin-bottom:6px" title="' +
+            utilisationPct +
+            '% of licence used">' +
+            '<div style="width:' +
+            utilisationBarWidth +
+            '%;height:100%;background:' +
+            riskColorHex +
+            '"></div>' +
+            '</div>' +
+            '<div style="display:flex;justify-content:space-between;font-size:17px;color:#505a5f;margin-bottom:14px"><span><strong style="color:#0b0c0c">' +
+            utilisationPct +
+            '%</strong> used</span><span>' +
+            commas(org.headroom_loc) +
+            ' lines remaining</span></div>' +
+            buildPublicLocSectionHtml(org, publicSharePct) +
+            buildReclaimSectionHtml(org, reclaimDrivers) +
+            buildCoverageWarningSectionHtml(org) +
+            '</div>'
+          )
+        }
+
+        function buildCostIntelligenceHtml(costIntelligence) {
+          if (!costIntelligence || !costIntelligence.organisations) return ''
+          var organisations = costIntelligence.organisations
+          var orgCardsHtml = ''
+          var summaryPhrases = []
+          var totalReclaimableLoc = 0
+          var totalBilledLoc = 0
+          Object.keys(organisations).forEach(function (orgName) {
+            var org = organisations[orgName]
+            var utilisationPct = org.utilisation_pct || 0
+            var planShortName = esc((org.plan || '').split(' ')[0])
+            summaryPhrases.push(
+              '<strong>' +
+                esc(orgName) +
+                '</strong> is using ' +
+                utilisationPct +
+                '% of its ' +
+                commas(org.loc_capacity) +
+                '-line ' +
+                planShortName +
+                ' allowance'
+            )
+            totalReclaimableLoc += org.reclaimable_billable_loc || 0
+            totalBilledLoc += org.billed_loc || 0
+            orgCardsHtml += buildOrgCardHtml(orgName, org)
+          })
+          var reclaimPercentOfBilled =
+            totalBilledLoc > 0 ? Math.round((totalReclaimableLoc / totalBilledLoc) * 1000) / 10 : 0
+          var acrossOrgsText =
+            Object.keys(organisations).length > 1 ? ' across all organisations combined' : ''
+          var costParagraphHtml =
+            '<strong>Licence cost and optimisation:</strong> Only private lines of code count towards Sonar licence limits; public code is analysed free of charge. ' +
+            summaryPhrases.join(', while ') +
+            '.' +
+            (totalReclaimableLoc > 0
+              ? ' By removing inactive and duplicate projects, up to <strong>' +
+                commas(totalReclaimableLoc) +
+                '</strong> private lines, approximately ' +
+                reclaimPercentOfBilled +
+                '% of the total private lines used' +
+                acrossOrgsText +
+                ', could be reclaimed. This would create more licence capacity and reduce the need for additional licence spending.'
+              : '')
+          return (
+            '<p style="margin:16px 0 12px;font-size:21px;line-height:1.55;color:#0b0c0c">' +
+            costParagraphHtml +
+            '</p>' +
+            '<div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:6px">' +
+            orgCardsHtml +
+            '</div>'
+          )
+        }
+
+        /* AI narrative — collapsible Agent Analysis panel.
+   Body: hygiene paragraph, then a concise cost paragraph, then the cost graph. */
+        function renderAiNarrativePanel() {
+          if (!(DATA.ai_insights && DATA.ai_insights.narrative)) return
+          var platformFilter = DATA.platform_filter
+          var platformLabel = ''
+          if (platformFilter === 'sonarqube') platformLabel = ' \u2014 Sonarqube'
+          else if (platformFilter === 'sonarcloud') platformLabel = ' \u2014 Sonarcloud'
+          var toggleLabel = '▼ Agent Analysis \u2014 Sonar Health' + platformLabel
+          var toggleLabelExpanded = '▲ Agent Analysis \u2014 Sonar Health' + platformLabel
+          var fullNarrative = DATA.ai_insights.narrative
+          var costNarrativeMarkers = [
+            'Only private lines of code count towards Sonar licence limits',
+            'From a cost intelligence perspective'
+          ]
+          var costNarrativeIndex = -1
+          for (var markerIdx = 0; markerIdx < costNarrativeMarkers.length; markerIdx++) {
+            var foundIdx = fullNarrative.indexOf(costNarrativeMarkers[markerIdx])
+            if (foundIdx >= 0) {
+              costNarrativeIndex = foundIdx
+              break
+            }
+          }
+          var hygieneNarrative =
+            costNarrativeIndex >= 0
+              ? fullNarrative.slice(0, costNarrativeIndex).trim()
+              : fullNarrative
+
+          var costSectionHtml = buildCostIntelligenceHtml(DATA.cost_intelligence)
+
+          $('aiNarrative').innerHTML =
+            '<div class="ai-toggle-wrap">' +
+            '<button type="button" class="ai-toggle-btn" onclick="this.parentNode.classList.toggle(\'expanded\');this.textContent=this.parentNode.classList.contains(\'expanded\')?\'' +
+            toggleLabelExpanded +
+            "':'" +
+            toggleLabel +
+            '\'">' +
+            toggleLabel +
+            '</button>' +
+            '<div class="ai-toggle-body">' +
+            '<p style="margin:0 0 10px;font-size:21px;line-height:1.55;color:#0b0c0c">' +
+            esc(hygieneNarrative) +
+            '</p>' +
+            costSectionHtml +
+            '</div>' +
+            '</div>'
+        }
+
+        /* Section 11: SONARQUBE / SONARCLOUD QUALITY PROFILE RULING */
+        function ruleAnalysisRowRenderer(r) {
+          return cell(r.category) + cell(r.profile_name_language) + cell(r.details) + cell(r.action)
+        }
+
+        function buildRuleAnalysisTableHtml(rows) {
+          var headers = ['Category', 'ProfileName|Language', 'Details', 'Action']
+          return renderTable(headers, rows, ruleAnalysisRowRenderer)
+        }
+
+        function renderSonarQubeProfileSectionHtml(sectionNumber, sections) {
+          var ruleAnalysisRows = sections.sonar_rules_analysis || []
+          var html =
+            '<h2>' +
+            sectionNumber +
+            '. Sonarqube Quality Profile Ruling <span class="tooltip">\u2139\uFE0F<span class="tt">Flagged when Quality Profile rules are stale, deprecated, or misconfigured on the self-hosted SonarQube instance.</span></span></h2>'
+          if (!ruleAnalysisRows.length) {
+            return (
+              html +
+              '<div class="ok"><div class="oh">Success</div><div class="ob">No issues found in this category</div></div>'
+            )
+          }
+          html += buildRuleAnalysisTableHtml(ruleAnalysisRows)
+          html += aiInsightBlock('sonarqube_rule_analysis')
+          return html
+        }
+
+        function renderSonarCloudProfileSectionHtml(sectionNumber, sections) {
+          var html =
+            '<h2>' +
+            sectionNumber +
+            '. Sonarcloud Quality Profile Ruling <span class="tooltip">\u2139\uFE0F<span class="tt">Flagged when Quality Profile rules are stale, overridden, or misconfigured for SonarCloud-managed projects.</span></span></h2>'
+          var defraRuleRows = sections.sonar_rules_analysis_defra || []
+          var govukRuleRows = sections.sonar_rules_analysis_defragovuk || []
+          if (!defraRuleRows.length && !govukRuleRows.length) {
+            return (
+              html +
+              '<div class="ok"><div class="oh">Success</div><div class="ob">No issues found in this category</div></div>'
+            )
+          }
+          if (defraRuleRows.length) {
+            html += '<h3>Organisation: defra</h3>'
+            html += buildRuleAnalysisTableHtml(defraRuleRows)
+          }
+          if (govukRuleRows.length) {
+            html += '<h3>Organisation: defragovuk</h3>'
+            html += buildRuleAnalysisTableHtml(govukRuleRows)
+          }
+          html += aiInsightBlock('sonarcloud_rule_analysis')
+          return html
+        }
+
+        function renderQualityProfileSection(sectionNumber, sections) {
+          if (DATA.platform_filter === 'sonarqube') {
+            sectionNumber = ++sectionNumber
+            $('s11').innerHTML = renderSonarQubeProfileSectionHtml(sectionNumber, sections)
+          } else if (DATA.platform_filter === 'sonarcloud') {
+            sectionNumber = ++sectionNumber
+            $('s11').innerHTML = renderSonarCloudProfileSectionHtml(sectionNumber, sections)
+          } else {
+            $('s11').innerHTML = ''
+          }
+          return sectionNumber
+        }
+
+        function renderAll() {
+          $('exec').innerHTML = buildSonarStatsHtml()
+
+          /* issue pie */
+          var sections = DATA.sections || {}
+
+          renderAiNarrativePanel()
+
+          /* sections — sectionNumber auto-increments so numbers stay sequential even when sections are hidden */
+          var sectionNumber = 0
+
+          $('s1').innerHTML = renderSection(
+            ++sectionNumber,
+            'Inactive Projects',
+            'Flagged when last analysis date exceeds 365 days (1 year). Inactive projects consume storage and LOC quota.',
+            ['Project Name', 'Last Analysis', 'Days Since'],
+            sections.inactive_projects,
+            function (r) {
+              return (
+                cell(r.project_name) + cell(getLastAnalysis(r)) + cell(r.days_since_last_analysis)
+              )
+            },
+            'inactive_repositories_by_age'
+          )
+
+          $('s2').innerHTML = renderSection(
+            ++sectionNumber,
+            'Code Hygiene: Duplication',
+            'Flagged when overall duplication percentage exceeds 10%. High duplication increases maintenance cost.',
+            ['Project Name', 'Duplication %', 'Lines of Code'],
+            sections.high_duplication,
+            function (r) {
+              return (
+                cell(r.project_name) +
+                cell(num(r.duplication_pct).toFixed(2) + '%') +
+                cell(commas(r.lines_of_code))
+              )
+            },
+            'high_duplication_repositories'
+          )
+
+          /* Section 3: SONAR CLOUD PRIVATE REPOSITORIES — SonarCloud only */
+          if (DATA.platform_filter === 'sonarqube') {
+            $('s3').innerHTML =
+              '' /* hidden for SonarQube — section not applicable, counter not incremented */
+          } else {
+            $('s3').innerHTML = renderSection(
+              ++sectionNumber,
+              'Sonar Cloud Private Repositories',
+              'Lists private SonarCloud projects. Private repos are billed per LOC under the SonarCloud subscription.',
+              ['Project Name', 'Lines of Code'],
+              sections.migration_candidates,
+              function (r) {
+                return cell(r.project_name) + cell(commas(r.lines_of_code))
+              },
+              'private_repositories_migration_candidates'
+            )
+          }
+
+          ;(function () {
+            var nonStandardMainBranchRows = sections.branch_hygiene_non_standard_main_branch || []
+            var inactiveNonMainBranchRows = sections.branch_hygiene_inactive_non_main_branches || []
+            var excessNonMainBranchRows =
+              sections.branch_hygiene_non_main_branch_count_over_threshold || []
+            var branchHygieneHtml =
+              '<h2>' +
+              ++sectionNumber +
+              '. Branch Hygiene <span class="tooltip">ℹ️<span class="tt">Flagged when main branch is not main/master, non-main branches are inactive for 90+ days, or non-main branch count exceeds configured threshold.</span></span></h2>'
+            branchHygieneHtml +=
+              '<h3>Repositories with non‑main branches in Sonar scan configuration</h3>'
+            var nonStandardMainBranchHeaders = ['Project Name', 'Main Branch']
+            var renderNonStandardMainBranchRow = function (r) {
+              return cell(r.project_name) + cell(r.main_branch)
+            }
+            branchHygieneHtml += renderTable(
+              nonStandardMainBranchHeaders,
+              nonStandardMainBranchRows,
+              renderNonStandardMainBranchRow
+            )
+            branchHygieneHtml += aiInsightBlock('repos_non_standard_main_branch')
+            branchHygieneHtml += '<h3>Repositories with inactive(90 days) non‑main branches</h3>'
+            var inactiveNonMainBranchHeaders = [
+              'Project Name',
+              '# of Inactive (90+) Non-Main branches'
+            ]
+            var renderInactiveNonMainBranchRow = function (r) {
+              return cell(r.project_name) + cell(r.inactive_branches_90)
+            }
+            branchHygieneHtml += renderTable(
+              inactiveNonMainBranchHeaders,
+              inactiveNonMainBranchRows,
+              renderInactiveNonMainBranchRow
+            )
+            branchHygieneHtml += aiInsightBlock('repos_with_inactive_non_main_branches')
+            branchHygieneHtml += '<h3>Repositories with too many non‑main branches (10+)</h3>'
+            var excessNonMainBranchHeaders = ['Project Name', '# of Non-Main branches']
+            var renderExcessNonMainBranchRow = function (r) {
+              return cell(r.project_name) + cell(r.non_main_branches)
+            }
+            branchHygieneHtml += renderTable(
+              excessNonMainBranchHeaders,
+              excessNonMainBranchRows,
+              renderExcessNonMainBranchRow
+            )
+            branchHygieneHtml += aiInsightBlock('repos_with_excess_non_main_branches')
+            $('s4').innerHTML = branchHygieneHtml
+          })()
+
+          $('s5').innerHTML = renderSection(
+            ++sectionNumber,
+            'Project Naming Conventions',
+            'Flagged when project name contains keywords: test, temp, demo, poc, sample, tmp, example. May indicate non-production entries.',
+            ['Project Name', 'Issue'],
+            sections.odd_names,
+            function (r) {
+              return cell(r.project_name) + cell(r.hygiene_issue)
+            },
+            'naming_oddities'
+          )
+
+          $('s6').innerHTML = renderSection(
+            ++sectionNumber,
+            'False Positives',
+            'Flagged when a project has false positives > 0 and at least one lacks a justification comment. Unjustified FPs reduce auditability.',
+            ['Project Name', 'Total FP', 'Without Justification'],
+            sections.false_positives,
+            function (r) {
+              return (
+                cell(r.project_name) +
+                cell(r.false_positives) +
+                cell(r.false_positives_no_justification)
+              )
+            },
+            'false_positive_counts'
+          )
+
+          $('s7').innerHTML = renderSection(
+            ++sectionNumber,
+            'Accepted Issues',
+            "Issues marked Accepted (formerly Won't Fix) — intentionally excluded from Quality Gate evaluation. Accepted issues must carry a justification comment to ensure auditability.",
+            ['Project Name', 'Total Accepted', 'Without Justification'],
+            sections.suppressions,
+            function (r) {
+              return (
+                cell(r.project_name) +
+                cell(r.suppressions_wont_fix) +
+                cell(r.suppressions_no_justification)
+              )
+            },
+            'accepted_issues'
+          )
+
+          /* Section 8 (CODE EXCLUSIONS) removed — not applicable to this governance view */
+          $('s8').innerHTML = ''
+
+          $('s9').innerHTML = renderSection(
+            ++sectionNumber,
+            'Projects With Non-compliant Quality Gate',
+            'Flagged when Quality Gate is not DEFRA Default, Defra CleanCode Default, or Defra way.',
+            ['Project Name', 'Quality Gate'],
+            sections.non_compliant_quality_gates,
+            function (r) {
+              return cell(r.project_name) + cell(r.quality_gate)
+            },
+            'non_compliant_quality_gates'
+          )
+
+          $('s10').innerHTML = renderSection(
+            ++sectionNumber,
+            'Configuration Issues',
+            'Flagged when scan date, lines of code (ncloc), or duplication density is missing. Projects without these produce incomplete governance data.',
+            ['Project Name', 'Missing Data'],
+            sections.missing_sonar_config,
+            function (r) {
+              return cell(r.project_name) + cell(r.missing_fields)
+            },
+            'repos_with_configuration_issues'
+          )
+
+          sectionNumber = renderQualityProfileSection(sectionNumber, sections)
+        }
+
+        /* toggle */
+        globalThis.toggleRows = function (btn) {
+          var ex = btn.previousElementSibling.querySelectorAll('[data-extra]')
+          var vis = ex[0] && ex[0].style.display !== 'none'
+          for (const r of ex) {
+            r.style.display = vis ? 'none' : ''
+          }
+          btn.querySelector('.arrow').style.transform = vis ? '' : 'rotate(90deg)'
+          btn.querySelector('span:last-child').textContent = vis
+            ? 'Show ' + ex.length + ' more (' + ex.length + ' total)'
+            : 'Hide additional rows'
+        }
+
+        /* ---- SHARED HELPERS (used by both modals) ---- */
+        function gv(o, ks) {
+          for (const k of ks) {
+            if (o[k] != null) return o[k]
+          }
+          return null
+        }
+
+        /* ---- SEARCH + MODAL ---- */
+        function isBlank(v) {
+          return v == null || v === '' || v === '\u2014' || String(v).trim() === ''
+        }
+        function getRawField(p, k) {
+          return p[k] != null ? p[k] : 0
+        }
+
+        /* Shared project identity helpers — used by both the single-project search and group search */
+        function projectDisplayName(p) {
+          return (
+            p.projectKey ||
+            p.projectkey ||
+            p.project_key ||
+            p.project ||
+            p.Name ||
+            p.name ||
+            'Unknown'
+          )
+        }
+        function projectIdCandidates(p) {
+          var out = []
+          ;[
+            'projectKey',
+            'projectkey',
+            'project_key',
+            'project',
+            'Name',
+            'name',
+            'Project Key',
+            'Project Name'
+          ].forEach(function (f) {
+            if (p[f] != null) out.push(String(p[f]).toLowerCase())
+          })
+          return out
+        }
+
+        function sevChip(val, sev) {
+          if (val > 0) {
+            var cls = 'sev-chip s-grey'
+            if (sev === 'red') cls = 'sev-chip s-red'
+            else if (sev === 'amber') cls = 'sev-chip s-amber'
+            return '<span class="' + cls + '">' + val + '</span>'
+          }
+          return '<span class="sev-chip s-grey">' + val + '</span>'
+        }
+
+        function buildSevTableRow(label, values) {
+          return (
+            '<tr><td>' +
+            label +
+            '</td><td>' +
+            sevChip(values[0], 'red') +
+            '</td><td>' +
+            sevChip(values[1], 'red') +
+            '</td><td>' +
+            sevChip(values[2], 'amber') +
+            '</td><td>' +
+            sevChip(values[3], 'grey') +
+            '</td><td>' +
+            sevChip(values[4], 'grey') +
+            '</td></tr>'
+          )
+        }
+
+        function buildSevTableHtml(bugCounts, vulnCounts, smellCounts) {
+          var h = '<table class="sev-table">'
+          h +=
+            '<tr><td class="sev-header"></td><td class="sev-header">Blk</td><td class="sev-header">High</td><td class="sev-header">Med</td><td class="sev-header">Low</td><td class="sev-header">Info</td></tr>'
+          h += buildSevTableRow('\u2022 Bugs', bugCounts)
+          h += buildSevTableRow('\u2022 Vulnerabilities', vulnCounts)
+          h += buildSevTableRow('\u2022 Code Smells', smellCounts)
+          h += '</table>'
+          return h
+        }
+
+        /* Accepted "not computed" phrases (0 new lines) — shown as a neutral success message rather than a config-issue flag */
+        var COV_DUP_ACCEPTED_TEXT = [
+          'not computed on 0 new lines to cover.',
+          'not computed on 0 new lines',
+          '0 lines cover',
+          'there are not enough lines to compute coverage'
+        ]
+
+        function formatNumericCoverageValue(n, threshold, flagAbove) {
+          var rounded = n.toFixed(2)
+          if (threshold != null) {
+            var breach = flagAbove ? n > threshold : n < threshold
+            if (breach) return '<span style="color:#d4351c;font-weight:700">' + rounded + '%</span>'
+          }
+          return rounded + '%'
+        }
+
+        /* Returns a status html string for known "not computed" text values, or null when textVal isn't recognised */
+        function formatTextualCoverageStatus(textVal) {
+          var t = String(textVal || '')
+            .trim()
+            .toLowerCase()
+          if (COV_DUP_ACCEPTED_TEXT.includes(t))
+            return (
+              '<span style="color:#00703c;font-weight:700" title="' +
+              esc(String(textVal || '')) +
+              '">Not computed (0 lines)</span>'
+            )
+          if (t === 'not computed' || t.startsWith('not computed'))
+            return (
+              '<span style="color:#f47738;font-weight:700" title="' +
+              esc(String(textVal || '')) +
+              '">' +
+              String(textVal || 'Not Computed') +
+              '</span>'
+            )
+          return null
+        }
+
+        function renderCoverageOrDuplicationValue(
+          v,
+          textVal,
+          label,
+          threshold,
+          flagAbove,
+          missingFields
+        ) {
+          if (!isBlank(v)) {
+            var n = Number.parseFloat(v)
+            if (!Number.isNaN(n)) return formatNumericCoverageValue(n, threshold, flagAbove)
+          }
+          var textStatusHtml = formatTextualCoverageStatus(textVal)
+          if (textStatusHtml != null) return textStatusHtml
+          if (label) missingFields.push(label)
+          return (
+            '<span style="background:#d4351c;color:#fff;padding:2px 8px;border-radius:4px;font-weight:700;font-size:18px" title="' +
+            esc(String(textVal || 'Not available in Sonar \u2014 check project configuration')) +
+            '">Config issue</span>'
+          )
+        }
+
+        /* Draw the bar value just above each Chart.js bar, in a contrasting dark colour */
+        function drawBarLabel(ctx, val, bar) {
+          if (!val || val === 0) return
+          ctx.save()
+          ctx.font = 'bold 11px Arial,sans-serif'
+          ctx.fillStyle = '#111'
+          ctx.textAlign = 'center'
+          ctx.textBaseline = 'bottom'
+          ctx.fillText(val, bar.x, bar.y - 3)
+          ctx.restore()
+        }
+
+        function drawDatasetBarLabels(chart, ds, di) {
+          var ctx = chart.ctx
+          var meta = chart.getDatasetMeta(di)
+          meta.data.forEach(function (bar, i) {
+            drawBarLabel(ctx, ds.data[i], bar)
+          })
+        }
+
+        function createBarLabelPlugin() {
+          return {
+            id: 'barLabels',
+            afterDatasetsDraw: function (chart) {
+              chart.data.datasets.forEach(function (ds, di) {
+                drawDatasetBarLabels(chart, ds, di)
+              })
+            }
+          }
+        }
+
+        function initDraggableModalHeader(wrap) {
+          var hdr = document.querySelector('.np-header')
+          if (!hdr || hdr._d) return
+          hdr._d = true
+          var drag = false,
+            sx,
+            sy,
+            ox,
+            oy,
+            el = wrap
+          hdr.addEventListener('mousedown', function (e) {
+            drag = true
+            sx = e.clientX
+            sy = e.clientY
+            var r = el.getBoundingClientRect()
+            ox = r.left
+            oy = r.top
+            el.style.transform = 'none'
+            el.style.left = ox + 'px'
+            el.style.top = oy + 'px'
+            document.body.style.userSelect = 'none'
+          })
+          document.addEventListener('mousemove', function (e) {
+            if (!drag) return
+            el.style.left = ox + (e.clientX - sx) + 'px'
+            el.style.top = oy + (e.clientY - sy) + 'px'
+          })
+          document.addEventListener('mouseup', function () {
+            if (drag) {
+              drag = false
+              document.body.style.userSelect = ''
+            }
+          })
+        }
+
+        function projectKeyMatchesQuery(key, q) {
+          return String(key).toLowerCase().includes(q)
+        }
+
+        function groupMatchesQuery(g, q) {
+          // Match on group name OR on any member project key (allows searching by project name prefix)
+          return (
+            g.name.toLowerCase().includes(q) ||
+            g.list.some(function (pk) {
+              return projectKeyMatchesQuery(pk, q)
+            })
+          )
+        }
+
+        function filterGroupsByQuery(groups, q) {
+          return groups
+            .filter(function (g) {
+              return groupMatchesQuery(g, q)
+            })
+            .slice(0, 50)
+        }
+
+        function appendGroupSuggestion(sg, g, onSelect) {
+          var d = document.createElement('div')
+          d.textContent = g.name
+          d.addEventListener('click', function () {
+            console.log('Group clicked:', g.name, g.list)
+            onSelect(g)
+          })
+          sg.appendChild(d)
+        }
+
+        function projectMatchesSearchQuery(p, q, ids) {
+          return ids(p).some(function (id) {
+            return id.includes(q)
+          })
+        }
+
+        function appendProjectSuggestion(sg, project, displayName, onSelect) {
+          var d = document.createElement('div')
+          d.textContent = displayName
+          d.addEventListener('click', function () {
+            onSelect(project)
+          })
+          sg.appendChild(d)
+        }
+
+        function findGroupProjectData(allGroups, groupName) {
+          if (allGroups && allGroups[groupName] && typeof allGroups[groupName] === 'object') {
+            return allGroups[groupName]
+          }
+          if (allGroups && Array.isArray(allGroups.projects)) {
+            return allGroups.projects.find(function (proj) {
+              return proj.name === groupName
+            })
+          }
+          return null
+        }
+
+        var GROUP_RAG_UNAVAILABLE_HTML =
+          '<div class="inset" style="border-left-color:#b1b4b6;font-size:16px;color:#505a5f">' +
+          '<p>No RAG status available for this group. Run the sonar-trigger pipeline to generate group reports.</p></div>'
+
+        function buildGroupRagStatusHtml(projectData) {
+          if (!(projectData && projectData.status)) return GROUP_RAG_UNAVAILABLE_HTML
+          var statusColor = '#d4351c'
+          if (projectData.status === 'Green') statusColor = '#00703c'
+          else if (projectData.status === 'Amber') statusColor = '#f47738'
+          var html =
+            '<div style="margin:8px 0"><span style="color:#0b0c0c;font-weight:600">RAG Status:</span> ' +
+            '<span style="display:inline-block;padding:4px 8px;background:' +
+            statusColor +
+            ';color:white;border-radius:4px;font-size:14px;font-weight:600;margin-left:8px">' +
+            esc(projectData.status) +
+            '</span></div>'
+          if (projectData.path_to_green) {
+            html +=
+              '<div style="margin:8px 0"><span style="color:#0b0c0c;font-weight:600">Path to Green:</span> ' +
+              '<span style="color:#505a5f;margin-left:8px">' +
+              esc(projectData.path_to_green) +
+              '</span></div>'
+          }
+          return html
+        }
+
+        var QG_STATUS_LABELS = {
+          OK: 'Passed',
+          PASSED: 'Passed',
+          ERROR: 'Failed',
+          FAILED: 'Failed',
+          WARN: 'Warning'
+        }
+
+        function resolveQualityGateState(qgSt) {
+          var upper = qgSt ? String(qgSt).toUpperCase() : ''
+          var passed = upper === 'OK' || upper === 'PASSED'
+          var failed = upper === 'ERROR' || upper === 'FAILED'
+          var cls = 'unknown'
+          if (passed) cls = 'pass'
+          else if (failed) cls = 'fail'
+          return { class: cls, passed: passed, failed: failed }
+        }
+
+        function buildQualityGateStatusSpan(qgSt) {
+          if (!qgSt) return '<span class="np-qg unknown">\u2014</span>'
+          var upper = String(qgSt).toUpperCase()
+          var qgStLabel = QG_STATUS_LABELS[upper] || qgSt
+          var qgStClass = resolveQualityGateState(qgSt).class
+          return '<span class="np-qg ' + qgStClass + '">' + esc(qgStLabel) + '</span>'
+        }
+
+        function buildGroupCardHtml(p, idx) {
+          var name = p.project_name || p['Project Name'] || projectDisplayName(p) || '\u2014'
+          var qg = p['Quality Gate Name'] || '\u2014'
+          var qgSt = p.QUALITY_GATE_STATUS || p['Quality Gate Status'] || null
+          var last = getLastAnalysis(p) || '\u2014'
+          var qgStSpan = buildQualityGateStatusSpan(qgSt)
+
+          var h = '<div class="gm-simple-card">'
+          h += '<a class="gm-simple-link" data-idx="' + idx + '">' + esc(name) + '</a>'
+          h +=
+            '<span class="gm-simple-field"><span class="gm-simple-lbl">QG Name:</span> ' +
+            esc(qg) +
+            '</span>'
+          h +=
+            '<span class="gm-simple-field"><span class="gm-simple-lbl">QG Status:</span> ' +
+            qgStSpan +
+            '</span>'
+          h +=
+            '<span class="gm-simple-field"><span class="gm-simple-lbl">Last Analysis:</span> ' +
+            esc(last) +
+            '</span>'
+          h += '</div>'
+          return h
+        }
+
+        /* Fixed 7-band x-axis — always shown regardless of which bands have data */
+        var FIXED_BANDS = [
+          '0\u20136 Months',
+          '6\u201312 Months',
+          '1\u20131.5 Years',
+          '1.5\u20133 Years',
+          '3\u20135 Years',
+          '5\u20137 Years',
+          '7+ Years'
+        ]
+
+        /* Parse band format: "0–6 Months=28;6–12 Months=27;..." */
+        function parseBandCounts(v) {
+          var o = {}
+          if (!v || v === 0 || String(v).trim() === '' || String(v).trim() === '0') return o
+          String(v)
+            .split(';')
+            .forEach(function (s) {
+              s = s.trim()
+              if (!s) return
+              var eq = s.indexOf('=')
+              if (eq === -1) return
+              var band = s.slice(0, eq).trim(),
+                cnt = Number.parseInt(s.slice(eq + 1), 10) || 0
+              if (band) o[band] = cnt
+            })
+          return o
+        }
+
+        /* Map parsed bands to the fixed band array (zero-fill missing) */
+        function toFixedBandArray(v) {
+          var m = parseBandCounts(v)
+          return FIXED_BANDS.map(function (b) {
+            return m[b] || 0
+          })
+        }
+
+        function buildAgingData(p) {
+          var bug = toFixedBandArray(p.BUG_AGING),
+            smell = toFixedBandArray(p.CODE_SMELL_AGING),
+            vuln = toFixedBandArray(p.VULNERABILITY_AGING)
+          var allVals = bug.concat(smell, vuln)
+          var maxVal = Math.max.apply(null, allVals) || 0
+          return { labels: FIXED_BANDS, bug: bug, smell: smell, vuln: vuln, maxVal: maxVal }
+        }
+
+        function initGroupSearch() {
+          var inp = $('groupSearch')
+          var sg = $('groupSuggestions')
+
+          if (!inp || !sg) {
+            console.warn('Group search UI missing: #groupSearch or #groupSuggestions')
+            return
+          }
+
+          // In-page elements (no longer modal)
+          var grPage = $('groupResultsPage')
+          var homeView = $('homeView')
+          var grTitle = $('grTitle')
+          var grSub = $('grSub')
+          var grList = $('grList')
+          var grPrev = $('grPrev')
+          var grNext = $('grNext')
+          var grPageInfo = $('grPageInfo')
+          var breadcrumbGroup = $('breadcrumbGroup')
+
+          if (
+            !grPage ||
+            !homeView ||
+            !grTitle ||
+            !grSub ||
+            !grList ||
+            !grPrev ||
+            !grNext ||
+            !grPageInfo
+          ) {
+            console.warn('Group results page markup missing.')
+            return
+          }
+
+          // Use same naming logic style as your single project search
+          var gn = projectDisplayName,
+            ids = projectIdCandidates
+
+          // Build a fast index: any id -> project record
+          var INDEX = {}
+          ;(AGING || []).forEach(function (p) {
+            ids(p).forEach(function (k) {
+              if (k && INDEX[k] == null) INDEX[k] = p
+            })
+          })
+
+          // Normalize GROUP_MAP into [{name, list}]
+          // Supports:
+          //  A) { "Proj A": ["a","b"] }
+          //  B) [{ group:"Proj A", projects:["a","b"] }]
+          var GROUPS = []
+          if (Array.isArray(GROUP_MAP)) {
+            GROUP_MAP.forEach(function (x) {
+              var name = x.group || x.name || x.keyword || x.key
+              var list = x.projects || x.projectKeys || x.project_keys || x.entries || []
+              if (name) GROUPS.push({ name: String(name), list: Array.isArray(list) ? list : [] })
+            })
+          } else {
+            Object.keys(GROUP_MAP || {}).forEach(function (k) {
+              GROUPS.push({ name: k, list: Array.isArray(GROUP_MAP[k]) ? GROUP_MAP[k] : [] })
+            })
+          }
+
+          if (!GROUPS.length) {
+            console.warn(
+              'No groups loaded. Check project_group_map.json path/name (404?) and its content.'
+            )
+          }
+
+          // Pagination state
+          var PAGE_SIZE = 10
+          var curItems = []
+          var curGroupName = ''
+          var curPage = 1
+
+          // find project by mapping value (exact first, then contains fallback)
+          function findProject(key) {
+            if (key == null) return null
+            var k = String(key).toLowerCase().trim()
+
+            if (INDEX[k]) return INDEX[k]
+
+            // fallback: contains match across all ids
+            for (const p of AGING || []) {
+              if (
+                ids(p).some(function (id) {
+                  return id.includes(k)
+                })
+              )
+                return p
+            }
+            return null
+          }
+
+          function resolveProjects(list) {
+            var seen = {}
+            var out = []
+            ;(list || []).forEach(function (k) {
+              var p = findProject(k)
+              if (p) {
+                var pk = gn(p).toLowerCase()
+                if (!seen[pk]) {
+                  seen[pk] = true
+                  out.push(p)
+                }
+              }
+            })
+            return out
+          }
+
+          // Suggest groups as you type
+          inp.addEventListener('input', function () {
+            var q = this.value.trim().toLowerCase()
+            sg.innerHTML = ''
+            if (!q) return
+
+            var matches = filterGroupsByQuery(GROUPS, q)
+
+            if (!matches.length) {
+              sg.innerHTML =
+                '<div style="padding:12px 16px;color:#505a5f;font-size:20px">No groups found</div>'
+              return
+            }
+
+            matches.forEach(function (g) {
+              appendGroupSuggestion(sg, g, openGroup)
+            })
+          })
+
+          // Enter opens exact group; Escape closes
+          inp.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+              var q = inp.value.trim().toLowerCase()
+              var exact = GROUPS.find(function (g) {
+                return g.name.toLowerCase() === q
+              })
+              if (exact) {
+                e.preventDefault()
+                openGroup(exact)
+              }
+            }
+            if (e.key === 'Escape') {
+              sg.innerHTML = ''
+              inp.blur()
+              closeGroup()
+            }
+          })
+
+          // Close dropdown when clicking outside
+          document.addEventListener('click', function (e) {
+            if (!inp.contains(e.target) && !sg.contains(e.target)) {
+              sg.innerHTML = ''
+            }
+          })
+
+          function openGroup(g) {
+            sg.innerHTML = ''
+            curGroupName = g.name
+            inp.value = g.name
+
+            curItems = resolveProjects(g.list)
+            curPage = 1
+
+            // Switch views: hide home, show group results
+            homeView.style.display = 'none'
+            grPage.classList.add('visible')
+            breadcrumbGroup.textContent = g.name
+            globalThis.scrollTo(0, 0)
+
+            // Load group RAG status if available
+            var aiDiv = $('groupAiSummary')
+            if (aiDiv) {
+              aiDiv.innerHTML =
+                '<p style="color:#505a5f;font-style:italic">Loading RAG status...</p>'
+              fetch('all_groups_report.json', { cache: 'no-store' })
+                .then(function (r) {
+                  return r.json()
+                })
+                .then(function (allGroups) {
+                  // Look up group data: first try top-level key (all_groups_report structure),
+                  // then fall back to a projects[] array for legacy formats.
+                  var projectData = findGroupProjectData(allGroups, g.name)
+                  aiDiv.innerHTML = buildGroupRagStatusHtml(projectData)
+                })
+                .catch(function () {
+                  aiDiv.innerHTML = buildGroupRagStatusHtml(null)
+                })
+            }
+
+            renderPage()
+          }
+
+          // Expose for navigation
+          globalThis.__closeGroupView = closeGroup
+
+          function closeGroup() {
+            grPage.classList.remove('visible')
+            homeView.style.display = ''
+            grList.innerHTML = ''
+            grTitle.textContent = ''
+            grSub.textContent = ''
+            var aiDiv = $('groupAiSummary')
+            if (aiDiv) aiDiv.innerHTML = ''
+            curItems = []
+            curGroupName = ''
+            curPage = 1
+            globalThis.scrollTo(0, 0)
+          }
+
+          grPrev.addEventListener('click', function () {
+            if (curPage > 1) {
+              curPage--
+              renderPage()
+            }
+          })
+
+          grNext.addEventListener('click', function () {
+            var totalPages = Math.max(1, Math.ceil(curItems.length / PAGE_SIZE))
+            if (curPage < totalPages) {
+              curPage++
+              renderPage()
+            }
+          })
+
+          function showProjectDetailsFor(p) {
+            if (globalThis.__showProjectDetails) globalThis.__showProjectDetails(p)
+          }
+
+          function renderGroupResultItem(p, idx) {
+            var li = document.createElement('li')
+            li.innerHTML = buildGroupCardHtml(p, idx)
+            grList.appendChild(li)
+            var link = li.querySelector('.gm-simple-link[data-idx="' + idx + '"]')
+            if (link)
+              link.addEventListener('click', function () {
+                showProjectDetailsFor(p)
+              })
+          }
+
+          function renderPage() {
+            var total = curItems.length
+            var totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE))
+            if (curPage > totalPages) curPage = totalPages
+
+            var start = (curPage - 1) * PAGE_SIZE
+            var end = Math.min(start + PAGE_SIZE, total)
+            var pageItems = curItems.slice(start, end)
+
+            grTitle.textContent = curGroupName
+            grSub.textContent = total
+              ? total + ' projects found \u2014 showing ' + (start + 1) + '\u2013' + end
+              : 'No projects matched. Check values in project_group_map.json.'
+
+            grPrev.disabled = curPage <= 1
+            grNext.disabled = curPage >= totalPages
+            grPageInfo.textContent = 'Page ' + curPage + ' of ' + totalPages
+
+            grList.innerHTML = ''
+            if (!pageItems.length) {
+              grList.innerHTML = '<li style="padding:14px 0;color:#505a5f">No results</li>'
+              return
+            }
+
+            pageItems.forEach(renderGroupResultItem)
+          }
+        }
+
+        function initSearch() {
+          var inp = $('projectSearch'),
+            sg = $('suggestions'),
+            modal = $('projectModal'),
+            agChart = null
+          $('closeModal').addEventListener('click', closeM)
+
+          var gn = projectDisplayName,
+            ids = projectIdCandidates
+
+          inp.addEventListener('input', function () {
+            var q = this.value.trim().toLowerCase()
+            sg.innerHTML = ''
+            if (!q) return
+            var m = AGING.filter(function (p) {
+              return projectMatchesSearchQuery(p, q, ids)
+            }).slice(0, 50)
+            if (!m.length) {
+              sg.innerHTML =
+                '<div style="padding:12px 16px;color:#505a5f;font-size:20px">No projects found</div>'
+              return
+            }
+            m.forEach(function (x) {
+              appendProjectSuggestion(sg, x, gn(x), showP)
+            })
+          })
+          inp.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+              sg.innerHTML = ''
+              this.blur()
+            }
+          })
+
+          function showP(p) {
+            sg.innerHTML = ''
+            var pk = gn(p)
+            inp.value = pk
+            $('pcName').textContent = pk
+            var qg = p['Quality Gate Name'] || '\u2014'
+            var qgSt = p.QUALITY_GATE_STATUS || null
+            var qgState = resolveQualityGateState(qgSt)
+            var qgStClass = qgState.class
+            var qgPassed = qgState.passed
+            var qgFailed = qgState.failed
+
+            /* Populate QG in header */
+            $('pcQgName').textContent = qg
+            var pillEl = $('pcQgPill')
+            pillEl.className = 'qg-pill ' + qgStClass
+            if (qgPassed || qgFailed) {
+              pillEl.textContent = qgPassed ? 'Passed' : 'Failed'
+            } else {
+              pillEl.innerHTML = '&#9888;&#65039; Not computed'
+            }
+
+            $('pcLegend').innerHTML = ''
+            ;[
+              { l: 'Bugs', c: '#E24B4A' },
+              { l: 'Code smells', c: '#EF9F27' },
+              { l: 'Vulnerabilities', c: '#87CEEB' }
+            ].forEach(function (x) {
+              $('pcLegend').innerHTML +=
+                '<span class="np-legend-item"><span class="np-legend-dot" style="background:' +
+                x.c +
+                '"></span><span>' +
+                x.l +
+                '</span></span>'
+            })
+
+            /* ---- Build structured content below graph ---- */
+            var s = ''
+            var missingFields = []
+
+            /* helper: check all tracked metric fields for null/blank and record missing ones */
+            var _metricChecks = [
+              ['QUALITY_GATE_STATUS', 'Quality Gate Status'],
+              ['SECURITY_HOTSPOTS_OVERALL', 'Security Hotspots Overall'],
+              ['SECURITY_HOTSPOTS_NEW_CODE', 'Security Hotspots New Code'],
+              ['BUG_NEW_CODE_BLOCKER', 'Bug New Blocker'],
+              ['BUG_OVERALL_CODE_BLOCKER', 'Bug Overall Blocker'],
+              ['BUG_NEW_CODE_HIGH|BUG_NEW_CODE_CRITICAL', 'Bug New High'],
+              ['BUG_OVERALL_CODE_HIGH|BUG_OVERALL_CODE_CRITICAL', 'Bug Overall High'],
+              ['BUG_NEW_CODE_MEDIUM|BUG_NEW_CODE_MAJOR', 'Bug New Medium'],
+              ['BUG_OVERALL_CODE_MEDIUM|BUG_OVERALL_CODE_MAJOR', 'Bug Overall Medium'],
+              ['BUG_NEW_CODE_LOW|BUG_NEW_CODE_MINOR', 'Bug New Low'],
+              ['BUG_OVERALL_CODE_LOW|BUG_OVERALL_CODE_MINOR', 'Bug Overall Low'],
+              ['BUG_NEW_CODE_INFO', 'Bug New Info'],
+              ['BUG_OVERALL_CODE_INFO', 'Bug Overall Info'],
+              ['VULNERABILITY_NEW_CODE_BLOCKER', 'Vuln New Blocker'],
+              ['VULNERABILITY_OVERALL_CODE_BLOCKER', 'Vuln Overall Blocker'],
+              ['VULNERABILITY_NEW_CODE_HIGH|VULNERABILITY_NEW_CODE_CRITICAL', 'Vuln New High'],
+              [
+                'VULNERABILITY_OVERALL_CODE_HIGH|VULNERABILITY_OVERALL_CODE_CRITICAL',
+                'Vuln Overall High'
+              ],
+              ['VULNERABILITY_NEW_CODE_MEDIUM|VULNERABILITY_NEW_CODE_MAJOR', 'Vuln New Medium'],
+              [
+                'VULNERABILITY_OVERALL_CODE_MEDIUM|VULNERABILITY_OVERALL_CODE_MAJOR',
+                'Vuln Overall Medium'
+              ],
+              ['VULNERABILITY_NEW_CODE_LOW|VULNERABILITY_NEW_CODE_MINOR', 'Vuln New Low'],
+              [
+                'VULNERABILITY_OVERALL_CODE_LOW|VULNERABILITY_OVERALL_CODE_MINOR',
+                'Vuln Overall Low'
+              ],
+              ['VULNERABILITY_NEW_CODE_INFO', 'Vuln New Info'],
+              ['VULNERABILITY_OVERALL_CODE_INFO', 'Vuln Overall Info'],
+              ['CODE_SMELL_NEW_CODE_BLOCKER', 'Code Smell New Blocker'],
+              ['CODE_SMELL_OVERALL_CODE_BLOCKER', 'Code Smell Overall Blocker'],
+              ['CODE_SMELL_NEW_CODE_HIGH|CODE_SMELL_NEW_CODE_CRITICAL', 'Code Smell New High'],
+              [
+                'CODE_SMELL_OVERALL_CODE_HIGH|CODE_SMELL_OVERALL_CODE_CRITICAL',
+                'Code Smell Overall High'
+              ],
+              ['CODE_SMELL_NEW_CODE_MEDIUM|CODE_SMELL_NEW_CODE_MAJOR', 'Code Smell New Medium'],
+              [
+                'CODE_SMELL_OVERALL_CODE_MEDIUM|CODE_SMELL_OVERALL_CODE_MAJOR',
+                'Code Smell Overall Medium'
+              ],
+              ['CODE_SMELL_NEW_CODE_LOW|CODE_SMELL_NEW_CODE_MINOR', 'Code Smell New Low'],
+              [
+                'CODE_SMELL_OVERALL_CODE_LOW|CODE_SMELL_OVERALL_CODE_MINOR',
+                'Code Smell Overall Low'
+              ],
+              ['CODE_SMELL_NEW_CODE_INFO', 'Code Smell New Info'],
+              ['CODE_SMELL_OVERALL_CODE_INFO', 'Code Smell Overall Info']
+            ]
+            _metricChecks.forEach(function (mc) {
+              if (isBlank(gv(p, mc[0].split('|')))) missingFields.push(mc[1])
+            })
+
+            /* --- Gather all severity values (new labels first, legacy fallback) --- */
+            var bugNBl = num(gv(p, ['BUG_NEW_CODE_BLOCKER'])),
+              bugNCr = num(gv(p, ['BUG_NEW_CODE_HIGH', 'BUG_NEW_CODE_CRITICAL'])),
+              bugNMa = num(gv(p, ['BUG_NEW_CODE_MEDIUM', 'BUG_NEW_CODE_MAJOR'])),
+              bugNMi = num(gv(p, ['BUG_NEW_CODE_LOW', 'BUG_NEW_CODE_MINOR'])),
+              bugNInf = num(gv(p, ['BUG_NEW_CODE_INFO']))
+            var vulnNBl = num(gv(p, ['VULNERABILITY_NEW_CODE_BLOCKER'])),
+              vulnNCr = num(
+                gv(p, ['VULNERABILITY_NEW_CODE_HIGH', 'VULNERABILITY_NEW_CODE_CRITICAL'])
+              ),
+              vulnNMa = num(
+                gv(p, ['VULNERABILITY_NEW_CODE_MEDIUM', 'VULNERABILITY_NEW_CODE_MAJOR'])
+              ),
+              vulnNMi = num(gv(p, ['VULNERABILITY_NEW_CODE_LOW', 'VULNERABILITY_NEW_CODE_MINOR'])),
+              vulnNInf = num(gv(p, ['VULNERABILITY_NEW_CODE_INFO']))
+            var smNBl = num(gv(p, ['CODE_SMELL_NEW_CODE_BLOCKER'])),
+              smNCr = num(gv(p, ['CODE_SMELL_NEW_CODE_HIGH', 'CODE_SMELL_NEW_CODE_CRITICAL'])),
+              smNMa = num(gv(p, ['CODE_SMELL_NEW_CODE_MEDIUM', 'CODE_SMELL_NEW_CODE_MAJOR'])),
+              smNMi = num(gv(p, ['CODE_SMELL_NEW_CODE_LOW', 'CODE_SMELL_NEW_CODE_MINOR'])),
+              smNInf = num(gv(p, ['CODE_SMELL_NEW_CODE_INFO']))
+            var bugBl = num(gv(p, ['BUG_OVERALL_CODE_BLOCKER'])),
+              bugCr = num(gv(p, ['BUG_OVERALL_CODE_HIGH', 'BUG_OVERALL_CODE_CRITICAL'])),
+              bugMa = num(gv(p, ['BUG_OVERALL_CODE_MEDIUM', 'BUG_OVERALL_CODE_MAJOR'])),
+              bugMi = num(gv(p, ['BUG_OVERALL_CODE_LOW', 'BUG_OVERALL_CODE_MINOR'])),
+              bugInf = num(gv(p, ['BUG_OVERALL_CODE_INFO']))
+            var vulnBl = num(gv(p, ['VULNERABILITY_OVERALL_CODE_BLOCKER'])),
+              vulnCr = num(
+                gv(p, ['VULNERABILITY_OVERALL_CODE_HIGH', 'VULNERABILITY_OVERALL_CODE_CRITICAL'])
+              ),
+              vulnMa = num(
+                gv(p, ['VULNERABILITY_OVERALL_CODE_MEDIUM', 'VULNERABILITY_OVERALL_CODE_MAJOR'])
+              ),
+              vulnMi = num(
+                gv(p, ['VULNERABILITY_OVERALL_CODE_LOW', 'VULNERABILITY_OVERALL_CODE_MINOR'])
+              ),
+              vulnInf = num(gv(p, ['VULNERABILITY_OVERALL_CODE_INFO']))
+            var smBl = num(gv(p, ['CODE_SMELL_OVERALL_CODE_BLOCKER'])),
+              smCr = num(
+                gv(p, ['CODE_SMELL_OVERALL_CODE_HIGH', 'CODE_SMELL_OVERALL_CODE_CRITICAL'])
+              ),
+              smMa = num(
+                gv(p, ['CODE_SMELL_OVERALL_CODE_MEDIUM', 'CODE_SMELL_OVERALL_CODE_MAJOR'])
+              ),
+              smMi = num(gv(p, ['CODE_SMELL_OVERALL_CODE_LOW', 'CODE_SMELL_OVERALL_CODE_MINOR'])),
+              smInf = num(gv(p, ['CODE_SMELL_OVERALL_CODE_INFO']))
+
+            /* --- QUALITY — NEW CODE + OVERALL CODE --- side by side */
+            s += '<div class="np-grid-row">'
+            s += '<div class="np-grid-card"><h4>QUALITY \u2014 NEW CODE</h4>'
+            s += buildSevTableHtml(
+              [bugNBl, bugNCr, bugNMa, bugNMi, bugNInf],
+              [vulnNBl, vulnNCr, vulnNMa, vulnNMi, vulnNInf],
+              [smNBl, smNCr, smNMa, smNMi, smNInf]
+            )
+            s += '</div>'
+            s += '<div class="np-grid-card"><h4>QUALITY \u2014 OVERALL CODE</h4>'
+            s += buildSevTableHtml(
+              [bugBl, bugCr, bugMa, bugMi, bugInf],
+              [vulnBl, vulnCr, vulnMa, vulnMi, vulnInf],
+              [smBl, smCr, smMa, smMi, smInf]
+            )
+            s += '</div></div>'
+
+            /* --- COVERAGE & DUPLICATION + SECURITY REVIEW --- side by side */
+            var covNew = gv(p, ['COVERAGE_NEW_CODE', 'Coverage New Code'])
+            var covAll = gv(p, [
+              'COVERAGE_OVERALL',
+              'Coverage Overall Code',
+              'COVERAGE_OVERALL_CODE'
+            ])
+            var dupNew = gv(p, [
+              'DUPLICATION_NEW_CODE',
+              'Duplicated Lines New Code(%)',
+              'duplicated_lines_new_code'
+            ])
+            var dupAll = gv(p, [
+              'DUPLICATION_OVERALL',
+              'Duplicated Lines Overall Code(%)',
+              'duplicated_lines_density'
+            ])
+            var covNewStr = renderCoverageOrDuplicationValue(
+              covNew,
+              p.COVERAGE_NEW_CODE_TEXT,
+              'Coverage New Code',
+              90,
+              false,
+              missingFields
+            )
+            var covAllStr = renderCoverageOrDuplicationValue(
+              covAll,
+              p.COVERAGE_OVERALL_TEXT,
+              'Coverage Overall',
+              null,
+              false,
+              missingFields
+            )
+            var dupNewStr = renderCoverageOrDuplicationValue(
+              dupNew,
+              p.DUPLICATION_NEW_CODE_TEXT,
+              'Duplication New Code',
+              3.0,
+              true,
+              missingFields
+            )
+            var dupAllStr = renderCoverageOrDuplicationValue(
+              dupAll,
+              p.DUPLICATION_OVERALL_TEXT,
+              'Duplication Overall',
+              null,
+              false,
+              missingFields
+            )
+
+            /* --- COVERAGE & DUPLICATION + ISSUE GOVERNANCE + BRANCH CONTEXT --- 3-column row */
+            var fpTotal = num(getRawField(p, 'False Positives'))
+            var fpNJ = num(getRawField(p, 'False Positives (No Justification)'))
+            var supTotal = num(getRawField(p, "Suppressions (Won't Fix)"))
+            var supNJ = num(getRawField(p, 'Suppressions (No Justification)'))
+            var govOk = '<span style="color:#00703c">&#10004;</span>'
+            var govWarn = '<span style="color:#d4351c">&#10060;</span>'
+            var mainBr = p.MainBranch || '\u2014'
+            var nonMainBr = num(p['Non-Main Branches'])
+            var inactiveBr = num(p['Inactive Branches (90+ days)'])
+
+            s += '<div class="np-grid-row" style="grid-template-columns:1fr 1fr 1fr">'
+            s += '<div class="np-grid-card"><h4>COVERAGE &amp; DUPLICATION</h4>'
+            s += '<p>&#x2022; Coverage: New ' + covNewStr + ' | Overall ' + covAllStr + '</p>'
+            s += '<p>&#x2022; Duplication: New ' + dupNewStr + ' | Overall ' + dupAllStr + '</p>'
+            s += '</div>'
+            s += '<div class="np-grid-card"><h4>ISSUE GOVERNANCE</h4>'
+            s += '<p>' + (fpTotal === 0 ? govOk : govWarn) + ' False Positive: ' + fpTotal + '</p>'
+            s += '<p>' + (fpNJ === 0 ? govOk : govWarn) + ' FP (no justification): ' + fpNJ + '</p>'
+            s += '<p>' + (supTotal === 0 ? govOk : govWarn) + ' Suppressions: ' + supTotal + '</p>'
+            s +=
+              '<p>' +
+              (supNJ === 0 ? govOk : govWarn) +
+              " Won't Fix (no justification): " +
+              supNJ +
+              '</p>'
+            s += '</div>'
+            s += '<div class="np-grid-card"><h4>BRANCH CONTEXT</h4>'
+            s += '<p>Main branch: <strong>' + esc(mainBr) + '</strong></p>'
+            s += '<p>Non-main branches: <strong>' + nonMainBr + '</strong></p>'
+            s += '<p>Inactive branches (90+ days): <strong>' + inactiveBr + '</strong></p>'
+            s += '</div></div>'
+
+            /* --- Missing fields banner --- */
+            /* De-duplicate missingFields */
+            var uniqueMissing = []
+            var seenMF = {}
+            missingFields.forEach(function (f) {
+              if (!seenMF[f]) {
+                seenMF[f] = true
+                uniqueMissing.push(f)
+              }
+            })
+            if (uniqueMissing.length > 0) {
+              s +=
+                '<div style="margin:14px 0;padding:12px 18px;background:#fce4e4;border:2px solid #d4351c;border-radius:8px;font-size:19px;color:#6b1a1a">'
+              s +=
+                '<strong style="font-size:20px;color:#d4351c">&#9888; ' +
+                uniqueMissing.length +
+                ' metric' +
+                (uniqueMissing.length > 1 ? 's' : '') +
+                ' missing due to Sonar configuration</strong>'
+              s +=
+                '<p style="margin:6px 0 0;font-size:17px;color:#505a5f">Values shown as <span style="background:#d4351c;color:#fff;padding:1px 6px;border-radius:4px;font-weight:700;font-size:15px">Missing</span> or <span style="background:#d4351c;color:#fff;padding:1px 6px;border-radius:4px;font-weight:700;font-size:15px">Config issue</span> are not populated because they are not available in Sonar. This may be caused by a missing scanner configuration, incomplete analysis run, or unsupported language plugin. Check the project settings in SonarQube/SonarCloud.</p>'
+              s += '</div>'
+            }
+
+            $('pcStructured').innerHTML = s
+
+            modal.classList.add('visible')
+            document.body.style.overflow = 'hidden'
+            var wrap = document.querySelector('.np-wrap')
+            wrap.style.left = '50%'
+            wrap.style.top = '1vh'
+            wrap.style.transform = 'translateX(-50%)'
+
+            /* draggable header */
+            initDraggableModalHeader(wrap)
+
+            try {
+              if (agChart) {
+                agChart.destroy()
+                agChart = null
+              }
+              var cv = $('pcAgingCanvas'),
+                cp = cv.parentNode
+              cv.remove()
+              var nc = document.createElement('canvas')
+              nc.id = 'pcAgingCanvas'
+              cp.appendChild(nc)
+              var agd = buildAgingData(p)
+              requestAnimationFrame(function () {
+                var rawMax = agd.maxVal > 0 ? agd.maxVal : 5
+                var yMax = Math.ceil(rawMax * 1.2)
+                agChart = new Chart(nc.getContext('2d'), {
+                  type: 'bar',
+                  data: {
+                    labels: agd.labels,
+                    datasets: [
+                      {
+                        label: 'Bugs',
+                        data: agd.bug,
+                        backgroundColor: '#E24B4A',
+                        borderWidth: 0,
+                        borderRadius: 3,
+                        minBarLength: 3
+                      },
+                      {
+                        label: 'Code Smells',
+                        data: agd.smell,
+                        backgroundColor: '#EF9F27',
+                        borderWidth: 0,
+                        borderRadius: 3,
+                        minBarLength: 3
+                      },
+                      {
+                        label: 'Vulnerabilities',
+                        data: agd.vuln,
+                        backgroundColor: '#87CEEB',
+                        borderWidth: 0,
+                        borderRadius: 3,
+                        minBarLength: 3
+                      }
+                    ]
+                  },
+                  plugins: [createBarLabelPlugin()],
+                  options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false }, tooltip: { enabled: false } },
+                    scales: {
+                      x: {
+                        grid: { display: false },
+                        ticks: {
+                          maxRotation: 40,
+                          font: { size: 12, weight: 'bold' },
+                          color: '#000'
+                        }
+                      },
+                      y: {
+                        beginAtZero: true,
+                        suggestedMax: yMax,
+                        ticks: {
+                          precision: 0,
+                          stepSize: Math.max(1, Math.ceil(rawMax / 5)),
+                          font: { size: 12, weight: 'bold' },
+                          color: '#000'
+                        }
+                      }
+                    }
+                  }
+                })
+              })
+            } catch (e) {
+              console.error('Chart error:', e)
+            }
+          }
+
+          function closeM() {
+            modal.classList.remove('visible')
+            document.body.style.overflow = ''
+          }
+          globalThis.__showProjectDetails = showP
+        }
+      })()
+
+      /* ---- Navigation between views ---- */
+      /* Home breadcrumb + header link -> go back to home view */
+      function goHome() {
+        if (globalThis.__closeGroupView) globalThis.__closeGroupView()
+      }
+
+      function initNavigation() {
+        // Group search is always visible on home page, no toggle needed
+        var groupSearch = document.getElementById('groupSearch')
+        if (groupSearch) groupSearch.disabled = false
+
+        document.getElementById('breadcrumbHome').addEventListener('click', goHome)
+        document.getElementById('headerHomeLink').addEventListener('click', function (e) {
+          e.preventDefault()
+          goHome()
+        })
+      }
+    </script>
+    <!-- Group Modal (no longer govuk-headerused - kept hidden for compatibility) -->
+    <div id="groupModal" style="display: none"></div>
+  </body>
+</html>

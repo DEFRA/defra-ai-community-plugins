@@ -1,0 +1,60 @@
+{
+  "group1": {
+    "group_name": "group1",
+    "platform_filter": "",
+    "total_projects": 0,
+    "total_projects_in_map": 0,
+    "matched": 0,
+    "unmatched": ["exports"],
+    "total_loc": 0,
+    "quality_gate": {
+      "passed": 0,
+      "failed": 0,
+      "unknown": 0
+    },
+    "code_quality": {
+      "bugs": 0,
+      "vulnerabilities": 0,
+      "code_smells": 0,
+      "security_hotspots": 0,
+      "avg_coverage": null,
+      "avg_duplication": null
+    },
+    "severity_breakdown": {
+      "bugs": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "vulnerabilities": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "code_smells": {
+        "blocker": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      }
+    },
+    "governance": {
+      "inactive_projects": [],
+      "inactive_branches": 0,
+      "false_positives": 0,
+      "false_positives_no_justification": 0,
+      "suppressions": 0,
+      "suppressions_no_justification": 0,
+      "missing_config": [],
+      "high_duplication": [],
+      "branch_issues": []
+    },
+    "qg_failed_projects": [],
+    "status": ""
+  }
+}
