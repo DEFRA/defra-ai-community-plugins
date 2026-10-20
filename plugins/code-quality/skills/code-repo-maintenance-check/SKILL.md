@@ -18,6 +18,7 @@ Runbook: read `$sonar_repo_metrics_file` → compute cost intelligence → gener
 - **Checkpoints:** pass each step's checkpoint before moving on, and **print the checklist in the chat** as you pass it — an unprinted checkpoint is not a guardrail. Tick `[ok]` only for a check you actually ran and that passed. `read` is safe; `cost` and `write` change the file.
 
 ## Workflow
+
 ### Step 0: Read the evidence — `--stage read`
 
 ```bash
@@ -29,23 +30,24 @@ This prints the platform, repository totals, the section counts, and the full `o
 
 Each field name below becomes `<base>_insights`/`<base>_action` after analysis as per persona and written back to `$sonar_repo_metrics_file` in Step 3:
 
-| Field base name | Applies to | Evidence type | Where to read it |
-| --------------- | ---------- | -------------- | ----------------- |
-| `inactive_repositories_by_age` | Both | Count | `consolidated_metrics.inactive_repositories_by_age.<single value>` |
-| `high_duplication_repositories` | Both | Count | `consolidated_metrics.high_duplication_repositories.repos_over_threshold` |
-| `private_repositories_migration_candidates` | SonarCloud only | Count | `consolidated_metrics.private_repositories_migration_candidates.<single value>` |
-| `false_positive_counts` | Both | Count | `consolidated_metrics.false_positive_counts.<single value>` |
-| `accepted_issues` | Both | Count | `consolidated_metrics.accepted_issues.<single value>` |
-| `non_compliant_quality_gates` | Both | Count | `consolidated_metrics.non_compliant_quality_gates.<single value>` |
-| `repos_with_configuration_issues` | Both | Count | `consolidated_metrics.repos_with_configuration_issues.<single value>` |
-| `repos_non_standard_main_branch` | Both | Count | `consolidated_metrics.branch_hygiene.repos_non_standard_main_branch` |
-| `repos_with_inactive_non_main_branches` | Both | Count | `consolidated_metrics.branch_hygiene.repos_with_inactive_non_main_branches` |
-| `repos_with_excess_non_main_branches` | Both | Count | `consolidated_metrics.branch_hygiene.repos_with_excess_non_main_branches` |
-| `naming_oddities` | Both | Full list | `sections.odd_names` (no count) |
-| `sonarqube_rule_analysis` | SonarQube only | Full list | `sonar_rules_analysis` |
-| `sonarcloud_rule_analysis` | SonarCloud only | Full list | `sonar_rules_analysis_defra` + `sonar_rules_analysis_defragovuk` |
+| Field base name                             | Applies to      | Evidence type | Where to read it                                                                |
+| ------------------------------------------- | --------------- | ------------- | ------------------------------------------------------------------------------- |
+| `inactive_repositories_by_age`              | Both            | Count         | `consolidated_metrics.inactive_repositories_by_age.<single value>`              |
+| `high_duplication_repositories`             | Both            | Count         | `consolidated_metrics.high_duplication_repositories.repos_over_threshold`       |
+| `private_repositories_migration_candidates` | SonarCloud only | Count         | `consolidated_metrics.private_repositories_migration_candidates.<single value>` |
+| `false_positive_counts`                     | Both            | Count         | `consolidated_metrics.false_positive_counts.<single value>`                     |
+| `accepted_issues`                           | Both            | Count         | `consolidated_metrics.accepted_issues.<single value>`                           |
+| `non_compliant_quality_gates`               | Both            | Count         | `consolidated_metrics.non_compliant_quality_gates.<single value>`               |
+| `repos_with_configuration_issues`           | Both            | Count         | `consolidated_metrics.repos_with_configuration_issues.<single value>`           |
+| `repos_non_standard_main_branch`            | Both            | Count         | `consolidated_metrics.branch_hygiene.repos_non_standard_main_branch`            |
+| `repos_with_inactive_non_main_branches`     | Both            | Count         | `consolidated_metrics.branch_hygiene.repos_with_inactive_non_main_branches`     |
+| `repos_with_excess_non_main_branches`       | Both            | Count         | `consolidated_metrics.branch_hygiene.repos_with_excess_non_main_branches`       |
+| `naming_oddities`                           | Both            | Full list     | `sections.odd_names` (no count)                                                 |
+| `sonarqube_rule_analysis`                   | SonarQube only  | Full list     | `sonar_rules_analysis`                                                          |
+| `sonarcloud_rule_analysis`                  | SonarCloud only | Full list     | `sonar_rules_analysis_defra` + `sonar_rules_analysis_defragovuk`                |
 
-**Checkpoint:** 
+**Checkpoint:**
+
 - [ ] persona file read this conversation
 - [ ] exit `0`
 - [ ] `platform` is `sonarqube` or `sonarcloud`
@@ -63,7 +65,8 @@ python scripts/process_sonar_metrics.py --stage cost \
   --governance-file $sonar_repo_metrics_file
 ```
 
-**Checkpoint:** 
+**Checkpoint:**
+
 - [ ] exit `0` (no `ERROR:`) ·
 - [ ] `cost_intelligence_narrative` captured verbatim.
 
@@ -81,6 +84,7 @@ Write the `ai_insights` values, following the persona's wording rules. Produce a
 A full worked example of every field is in [EXAMPLES.md](EXAMPLES.md).
 
 Then:
+
 1. Copy the template for your platform.
 2. Fill in each value as plain text; leave `""` only per rule 4 above.
 3. Save it as e.g. `data-files/sonar_repo_metrics_values.json`.
@@ -88,6 +92,7 @@ Then:
 Templates: [SonarCloud](templates/values.sonarcloud.template.json) · [SonarQube](templates/values.sonarqube.template.json)
 
 **Checkpoint:**
+
 - [ ] every row in the Step 0 table has a corresponding `<base>_insights`/`<base>_action` pair in the values file
 - [ ] each populated pair is filled with real, evidence-led text (not left as the template's `""` placeholder) — list any row still `""` and confirm it is a genuine no-evidence case, not an oversight
 - [ ] `narrative` ends with the verbatim Step 1 cost narrative
@@ -104,7 +109,8 @@ python scripts/process_sonar_metrics.py --stage write \
   --values-file data-files/sonar_repo_metrics_values.json
 ```
 
-**Checkpoint:** 
+**Checkpoint:**
+
 - [ ] exit `0` with `Written -> <path>`
 - [ ] values file uses the chosen platform template's keys
 - [ ] re-run Step 0 (`--stage read`) or open `$sonar_repo_metrics_file` and confirm `ai_insights.sections` now contains every row from the Step 0 table with the same non-empty content authored in Step 2 — not just `narrative` alone

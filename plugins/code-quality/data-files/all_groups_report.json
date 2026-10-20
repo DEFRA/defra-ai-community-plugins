@@ -131,9 +131,7 @@
     "total_projects": 5,
     "total_projects_in_map": 6,
     "matched": 5,
-    "unmatched": [
-      "sample-repo-310"
-    ],
+    "unmatched": ["sample-repo-310"],
     "total_loc": 44189,
     "quality_gate": {
       "passed": 5,
@@ -636,9 +634,7 @@
       }
     },
     "governance": {
-      "inactive_projects": [
-        "sample-repo-098"
-      ],
+      "inactive_projects": ["sample-repo-098"],
       "inactive_branches": 1,
       "false_positives": 15,
       "false_positives_no_justification": 14,
@@ -793,9 +789,7 @@
     "total_projects": 14,
     "total_projects_in_map": 15,
     "matched": 14,
-    "unmatched": [
-      "sample-repo-010"
-    ],
+    "unmatched": ["sample-repo-010"],
     "total_loc": 111930,
     "quality_gate": {
       "passed": 11,
@@ -977,9 +971,7 @@
     "total_projects": 6,
     "total_projects_in_map": 7,
     "matched": 6,
-    "unmatched": [
-      "sample-repo-111"
-    ],
+    "unmatched": ["sample-repo-111"],
     "total_loc": 28525,
     "quality_gate": {
       "passed": 3,
@@ -1204,9 +1196,7 @@
       }
     },
     "governance": {
-      "inactive_projects": [
-        "sample-repo-597"
-      ],
+      "inactive_projects": ["sample-repo-597"],
       "inactive_branches": 0,
       "false_positives": 11,
       "false_positives_no_justification": 11,
@@ -1308,9 +1298,7 @@
       "false_positives_no_justification": 2,
       "suppressions": 1,
       "suppressions_no_justification": 0,
-      "missing_config": [
-        "sample-repo-129"
-      ],
+      "missing_config": ["sample-repo-129"],
       "high_duplication": [],
       "branch_issues": [
         {
@@ -1378,11 +1366,7 @@
       }
     },
     "governance": {
-      "inactive_projects": [
-        "sample-repo-575",
-        "sample-repo-445",
-        "sample-repo-160"
-      ],
+      "inactive_projects": ["sample-repo-575", "sample-repo-445", "sample-repo-160"],
       "inactive_branches": 1,
       "false_positives": 0,
       "false_positives_no_justification": 0,

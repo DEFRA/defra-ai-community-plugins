@@ -11027,10 +11027,7 @@
     {
       "name": "sample-repo-626",
       "score": 418,
-      "categories": [
-        "Unjustified FPs",
-        "Branch Hygiene"
-      ],
+      "categories": ["Unjustified FPs", "Branch Hygiene"],
       "details": {
         "unjustified_fps": 18,
         "inactive_branches": 58
@@ -11039,10 +11036,7 @@
     {
       "name": "sample-repo-620",
       "score": 189,
-      "categories": [
-        "Unjustified FPs",
-        "Branch Hygiene"
-      ],
+      "categories": ["Unjustified FPs", "Branch Hygiene"],
       "details": {
         "unjustified_fps": 1,
         "inactive_branches": 20
@@ -11051,10 +11045,7 @@
     {
       "name": "sample-repo-470",
       "score": 159,
-      "categories": [
-        "Inactive",
-        "Branch Hygiene"
-      ],
+      "categories": ["Inactive", "Branch Hygiene"],
       "details": {
         "inactive_days": 845,
         "inactive_branches": 20
@@ -11063,11 +11054,7 @@
     {
       "name": "sample-repo-566",
       "score": 136,
-      "categories": [
-        "Inactive",
-        "Branch Hygiene",
-        "Branch Hygiene"
-      ],
+      "categories": ["Inactive", "Branch Hygiene", "Branch Hygiene"],
       "details": {
         "inactive_days": 706,
         "inactive_branches": 16
@@ -11076,11 +11063,7 @@
     {
       "name": "sample-repo-642",
       "score": 131,
-      "categories": [
-        "Inactive",
-        "Unjustified FPs",
-        "Branch Hygiene"
-      ],
+      "categories": ["Inactive", "Unjustified FPs", "Branch Hygiene"],
       "details": {
         "inactive_days": 560,
         "unjustified_fps": 0,

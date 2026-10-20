@@ -10,13 +10,13 @@ Shared rules for this workspace. Persona, skill, and agent files hold the task-s
 
 All input/output JSON and the generated HTML report live in **`data-files/`** (workspace root). Skill/agent files may refer to these by the short variable name below — always resolve it to the path shown, never a different location:
 
-| Variable | Path | Purpose |
-| -------- | ---- | ------- |
-| `$sonar_repo_metrics_file` | `data-files/sonar_repo_metrics.json` | Repo-level Sonar metrics — read + written by `code-repo-maintenance-check` |
-| `$all_group_report_file` | `data-files/all_groups_report.json` | Per-group Sonar report — read + written by `code-assurance-rag` |
-| `$group_to_project_mapping` | `data-files/project_group_map.json` | Group → project mapping — read by `code-assurance-rag` |
-| — | `data-files/sonar_aging_merged.json` | Aging metrics, read alongside `$sonar_repo_metrics_file` |
-| — | `data-files/governance_report.html` | Final report served to the user |
+| Variable                    | Path                                 | Purpose                                                                    |
+| --------------------------- | ------------------------------------ | -------------------------------------------------------------------------- |
+| `$sonar_repo_metrics_file`  | `data-files/sonar_repo_metrics.json` | Repo-level Sonar metrics — read + written by `code-repo-maintenance-check` |
+| `$all_group_report_file`    | `data-files/all_groups_report.json`  | Per-group Sonar report — read + written by `code-assurance-rag`            |
+| `$group_to_project_mapping` | `data-files/project_group_map.json`  | Group → project mapping — read by `code-assurance-rag`                     |
+| —                           | `data-files/sonar_aging_merged.json` | Aging metrics, read alongside `$sonar_repo_metrics_file`                   |
+| —                           | `data-files/governance_report.html`  | Final report served to the user                                            |
 
 Config: `config/governance_thresholds.json`. Never invent values — every number/name must trace back to these files.
 

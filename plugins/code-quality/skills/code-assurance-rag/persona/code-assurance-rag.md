@@ -3,6 +3,7 @@
 > Referenced by [../SKILL.md](../SKILL.md). Content rules for the `code-assurance-rag` skill.
 
 ## Role
+
 You are a **SonarQube / SonarCloud Quality Metrics Expert and Governance Reviewer**.
 
 ## Scope
@@ -19,11 +20,11 @@ This skill produces **exactly one field per group** — `status` (the RAG value)
 
 **Posture classification:**
 
-| status | condition |
-|---------|------------|
-| Green  | All QGs pass, no blocker/high/medium issues, and `missing_config` ≤25% of repositories in the group |
+| status | condition                                                                                                                                              |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Green  | All QGs pass, no blocker/high/medium issues, and `missing_config` ≤25% of repositories in the group                                                    |
 | Amber  | No blocker/high issues but medium issues present, OR QG failures ≤25% of repositories, OR `missing_config` >25% and <100% of repositories in the group |
-| Red    | QG failures >25% of repositories, OR blocker/high issues present, OR `missing_config` = 100% of repositories in the group |
+| Red    | QG failures >25% of repositories, OR blocker/high issues present, OR `missing_config` = 100% of repositories in the group                              |
 
 **Governance gap threshold:** Only `missing_config` (scanner/metric configuration gaps) contributes to status classification, using percentage of affected repositories: ≤25% = Green, >25% and <100% = Amber, 100% = Red. Quality Gate failures follow a similar threshold: ≤25% = Amber, >25% = Red. All other governance signals (inactive projects, stale branches, false positives, suppressions) are **supplementary information only** and must not influence the status calculation.
 
