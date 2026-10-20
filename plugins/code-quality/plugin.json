@@ -1,0 +1,16 @@
+{
+  "$schema": "../../schemas/plugin.schema.json",
+  "name": "code-quality",
+  "description": "Generate an automated Code Quality Report for the CCTS team covering Code Repository Maintenance and Code Assurance.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Vishakha Kamble",
+    "email": "Vishakha.Kamble@defra.gov.uk"
+  },
+  "license": "OGL-UK-3.0",
+  "homepage": "https://github.com/DEFRA/defra-ai-community-plugins/tree/main/plugins/code-quality",
+  "repository": "https://github.com/DEFRA/defra-ai-community-plugins",
+  "category": "documentation",
+  "keywords": ["ccts", "code-quality", "sonar", "governance", "rag-report"],
+  "dependencies": []
+}

@@ -14,6 +14,13 @@
       "version": "0.1.0",
       "source": "plugins/dotnet-upgrade",
       "category": "development"
-    }
+    },
+     {
+      "name": "code-quality",
+      "description": "Generate an automated Code Quality Report for the CCTS team covering Code Repository Maintenance and Code Assurance.",
+      "version": "0.1.0",
+      "source": "plugins/code-quality",
+      "category": "documentation"
+     }
   ]
 }

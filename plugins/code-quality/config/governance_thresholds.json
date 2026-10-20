@@ -1,0 +1,7 @@
+{
+  "inactive_months_threshold": 12,
+  "inactive_buckets_years": [1, 2, 4, 6, 8],
+  "high_duplication_threshold_pct": 15,
+  "branch_inactive_days_threshold": 90,
+  "non_main_branch_count_threshold": 10
+}
